@@ -11,16 +11,6 @@ class Admin extends Authenticatable {
 
 	protected $guard = 'admin';
 
-	// /**
-	//  * Send the password reset notification.
-	//  *
-	//  * @param  string  $token
-	//  * @return void
-	//  */
-	// public function sendPasswordResetNotification($token) {
-	// 	$this->notify(new AdminResetPasswordNotification($token));
-	// }
-
 	/**
 	 * The attributes that are mass assignable.
 	 *

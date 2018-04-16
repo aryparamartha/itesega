@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Member;
 use App\User;
 use Auth;
+use Image;
+use File;
 use Illuminate\Http\Request;
 
-class TimController extends Controller {
+class TeamController extends Controller {
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -15,7 +17,7 @@ class TimController extends Controller {
 	 */
 	public function index() {
 		$member = Member::where('teamid', Auth::user()->id)->get();
-		return view('tim.dashboard', compact('member'));
+		return view('team.dashboard', compact('member'));
 	}
 
 	/**
@@ -55,7 +57,7 @@ class TimController extends Controller {
 	 */
 	public function edit($id) {
 		$team = Auth::user()->$id;
-		return view('tim.editteam', compact('team'));
+		return view('team.editteam', compact('team'));
 	}
 
 	/**
@@ -72,9 +74,37 @@ class TimController extends Controller {
 		$team->description = $request->description;
 		$team->email = $request->email;
 		$team->phonenumber = $request->phonenumber;
+
+		if($request->hasFile('avatar')){
+			if ($team->avatar != "default.jpg") {
+				$oldFileName= $team->avatar;
+				File::delete(public_path('/avatars/'. $oldFileName) );
+			}
+
+    		$avatar = $request->file('avatar');
+    		$filename = time() . '.' . $avatar->getClientOriginalExtension();
+    		Image::make($avatar)->save( public_path('/avatars/' . $filename ) );
+    		$team->avatar = $filename;
+        }
+
 		$team->save();
-		return redirect('/tim');
+		return redirect('/team');
 	}
+
+	public function updateAvatar(Request $request)
+    {
+        // Handle the user upload of avatar
+    	if($request->hasFile('avatar')){
+    		$avatar = $request->file('avatar');
+    		$filename = time() . '.' . $avatar->getClientOriginalExtension();
+    		Image::make($avatar)->save( public_path('/avatars/' . $filename ) );
+
+    		$user = Auth::user();
+    		$user->avatar = $filename;
+    		$user->save();
+        }
+        return redirect('/team');
+    }
 
 	/**
 	 * Remove the specified resource from storage.

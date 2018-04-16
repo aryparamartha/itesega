@@ -5,6 +5,8 @@ body {
   overflow-x: hidden;
 }
 
+img { -ms-interpolation-mode: bicubic; }
+
 a {
   color: #1dc8cd;
   transition: 0.5s;

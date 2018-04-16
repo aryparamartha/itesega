@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Member;
 use Auth;
+use Image;
+use File;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller {
@@ -33,6 +35,7 @@ class MemberController extends Controller {
 	 */
 	public function store(Request $request) {
 		$member = new Member;
+				
 		$member->name = $request->name;
 		$member->steamid = $request->steamid;
 		$member->email = $request->email;
@@ -40,9 +43,16 @@ class MemberController extends Controller {
 		$member->address = $request->address;
 		$member->teamid = Auth::user()->id;
 
+		if($request->hasFile('avatar')){
+			$avatar = $request->file('avatar');
+			$filename = time() . '.' . $avatar->getClientOriginalExtension();
+			Image::make($avatar)->save( public_path('/avatars/' . $filename ) );
+			$member->avatar= $filename;
+		}
+
 		$member->save();
 
-		return redirect('/tim');
+		return redirect('/team');
 	}
 
 	/**
@@ -77,8 +87,21 @@ class MemberController extends Controller {
 		$member->email = $request->email;
 		$member->phonenumber = $request->phonenumber;
 		$member->address = $request->address;
+		
+		if($request->hasFile('avatar')){
+			if ($member->avatar != "default.jpg") {
+				$oldFileName= $member->avatar;
+				File::delete(public_path('/avatars/'. $oldFileName) );
+			}
+
+    		$avatar = $request->file('avatar');
+    		$filename = time() . '.' . $avatar->getClientOriginalExtension();
+    		Image::make($avatar)->save( public_path('/avatars/' . $filename ) );
+			$member->avatar = $filename;
+        }
+
 		$member->save();
-		return redirect('/tim');
+		return redirect('/team');
 	}
 
 	/**
@@ -90,8 +113,10 @@ class MemberController extends Controller {
 		$member = Member::find($id);
 		if ($member) {
 			$member->delete();
+			$oldFileName= $member->avatar;
+			File::delete(public_path('/avatars/'. $oldFileName) );
 		}
 
-		return redirect('/tim');
+		return redirect('/team');
 	}
 }

@@ -18,11 +18,22 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/user/logout', 'Auth\LoginController@logoutUser')->name('user.logout');
-Route::get('/user/jadwal', 'UserScheduleController@userIndex')->name('user.jadwal');
 
-Route::resource('tim', 'TimController');
-Route::resource('anggota', 'MemberController');
+Route::group(['prefix'=> 'user'], function (){
+	Route::get('/logout', 'Auth\LoginController@logoutUser')->name('user.logout');
+	Route::get('/jadwal', 'UserScheduleController@userIndex')->name('user.jadwal');
+});
+
+
+Route::post('/team/update-avatar', 'TeamController@updateAvatar')->name('team.update-avatar');
+Route::resource('team', 'TeamController');
+
+
+
+Route::resource('member', 'MemberController');
+// Route::GET('member/update-avatar/{member}/edit', 'MemberController@editAvatar')->name('member.edit-avatar');
+// Route::PUT('member/update-avatar/{member}', 'MemberController@updateAvatar')->name('member.update-avatar');
+
 Route::resource('admin/jadwal', 'ScheduleController');
 
 Route::group(['prefix' => 'admin'], function () {

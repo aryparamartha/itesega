@@ -74,11 +74,6 @@
 	        	<nav class="col-md-2 d-none d-md-block bg-light sidebar">
 	          		<div class="sidebar-sticky">
 	            		<ul class="nav flex-column">
-	            			<li class="nav-item text-center mb-2">
-                                <i class="fas fa-user p-2" style="font-size: 56px;"></i>
-                                <p>{{Auth::user()->name}}</p>
-                            </li>
-
 	              			<li class="nav-item">
 	                			<a class="nav-link" href="{{ route('admin.home') }}">
                 				<i class="fas fa-home"></i> Dashboard</a>

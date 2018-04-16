@@ -19,6 +19,7 @@ class CreateMembersTable extends Migration {
 			$table->string('phonenumber');
 			$table->string('address');
 			$table->integer('teamid');
+			$table->string('avatar')->default('default.jpg');
 			$table->timestamps();
 		});
 	}

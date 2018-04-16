@@ -45,12 +45,13 @@
                 <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->
                     @guest
-                        <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
+                        <li><a class="nav-link" href="{{ route('login') }}"><i class="fas fa-sign-in-alt"></i> {{ __('Login') }}</a></li>
                         <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
                     @else
-                    <li><a class="nav-link" href="{{ route('tim.index') }}">{{ __('Kelola tim') }}</a></li>
+                    <li><a class="nav-link" href="{{ route('team.index') }}">{{ __('Kelola tim') }}</a></li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <img src="/avatars/{{Auth::user()->avatar}}" width="28px" height="28px" style="border-radius: 50%;" alt="">
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 

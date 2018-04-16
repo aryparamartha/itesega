@@ -5,18 +5,8 @@
 @endsection
 
 @section('content')
-	<div class="row border-bottom mb-3" style="margin-left: 2px">
-		<img class="mb-3" height="100px" width="100px" src="{{ asset('img/apple-touch-icon.png') }}">
-		<div class="ml-3">
-			<h5>Tim: <b>{{ Auth::user()->teamname }}</b></h5>
-			<p>Deskripsi: <b>{{ Auth::user()->description }}</b></p>
-			<p>Dibuat pada tanggal: <b>{{date('d F Y', strtotime(Auth::user()->created_at))}}</b></p>
-		</div>
-	</div>
-
-
 	<div class="col-md-5 px-0">
-		<form class="form-group" action="/anggota/{{$member->id}}" method="POST">
+		<form enctype="multipart/form-data" class="form-group" action="/member/{{$member->id}}" method="POST">
 
 			@csrf
 			{{method_field('PUT')}}
@@ -63,7 +53,21 @@
 
 	        <div class="row">
 				<label class="col-md-4" for="address">Alamat</label>
-				<textarea id="address" name="address" style="margin-left: 15px" class="col-md-7 form-control mb-2" required></textarea>
+				<input id="address" type="text" name="address" value="{{$member->address}}" style="margin-left: 15px" class="col-md-7 form-control{{ $errors->has('address') ? ' is-invalid' : '' }} mb-2" required>
+				@if ($errors->has('address'))
+					<span class="invalid-feedback">
+						<strong>{{ $errors->first('address') }}</strong>
+					</span>
+				@endif
+			</div>
+
+			<div class="alert alert-warning" role="alert">
+				Ukuran foto <span>tidak boleh</span> lebih dari 2 MB
+			</div>
+
+			<div class="row">							
+				<label class="col-md-4" for="avatar">Foto profil</label>
+				<input id="file" type="file" name="avatar" class="col-md-7">
 			</div>
 
 			<button type="submit" name="submit" value="Simpan" class="btn btn-primary mt-3" required><i class="far fa-save"></i> Simpan</button>

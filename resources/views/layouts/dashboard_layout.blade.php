@@ -41,31 +41,27 @@
                 </ul>
 
                 <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav ml-auto mr-5">
                     <!-- Authentication Links -->
-                    @guest
-                        <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
-                        <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
-                    @else
-                    <li><a class="nav-link" href="{{ route('tim.index') }}">{{ __('Kelola tim') }}</a></li>
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }} <span class="caret"></span>
+                    <a class="nav-link" href="{{ route('team.index') }}">{{ __('Kelola tim') }}</a></li>
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <img src="/avatars/{{Auth::user()->avatar}}" width="28px" height="28px" style="border-radius: 50%;" alt="">
+                            {{ Auth::user()->teamname }} <span class="caret"></span>
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('user.logout') }}"
+                                onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
                             </a>
 
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('user.logout') }}"
-                                   onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
-
-                                <form id="logout-form" action="{{ route('user.logout') }}" method="GET" style="display: none;">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
-                    @endguest
+                            <form id="logout-form" action="{{ route('user.logout') }}" method="GET" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
                 </ul>
             </div>
     </nav>
@@ -75,20 +71,14 @@
 	        	<nav class="col-md-2 d-none d-md-block bg-light sidebar">
 	          		<div class="sidebar-sticky">
 	            		<ul class="nav flex-column">
-	            			<li class="nav-item text-center mb-2">
-	                			<i class="fas fa-user p-2" style="font-size: 56px;"></i>
-                                <p>{{Auth::user()->name}}</p>
-	                		</li>
-
-	              			<li class="nav-item">
-	                			<a class="nav-link" href="/tim">
-                				<i class="fas fa-home"></i> Dashboard</a>
-	                		</li>
-			              	<li class="nav-item">
-				                <a class="nav-link" href="/user/jadwal">
-			                  	<i class="fas fa-calendar-alt"></i> Jadwal</a>
-			              	</li>
-
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.home') }}">
+                                <i class="fas fa-home"></i> Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link" href="{{ route('jadwal.index') }}">
+                                <i class="fas fa-calendar-alt"></i> Jadwal</a>
+                            </li>
 			            </ul>
 	          		</div>
 	        	</nav>
