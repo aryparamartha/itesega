@@ -14,13 +14,10 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
 
-    <!-- Font Awesome -->
-    <script type="text/javascript" src="{{ asset('js/fontawesome-all.js') }}" async></script>
-
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/datatables.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     
 </head>
@@ -107,8 +104,11 @@
 	</div>
 	<!-- Scripts -->
     <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{asset('js/datatables.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/datatables.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+
+    <!-- Font Awesome -->
+    <script type="text/javascript" src="{{ asset('js/fontawesome-all.js') }}" async></script>
 
     {{-- Custom js --}}
     <script>

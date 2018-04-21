@@ -19,10 +19,6 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/animate.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('font-awesome.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/ionicons.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('magnific-popup.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
 </head>
 <body>
@@ -76,18 +72,11 @@
 
     <!-- Scripts -->
     <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/jquery-migrate.min.js') }}"></script>
-    <script src="{{ asset('js/app.js') }}">
-    </script><script type="text/javascript" src="{{ asset('js/easing.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/wow.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/hoverIntent.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/superfish.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/magnific-popup.min.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{asset('js/datatables.min.js')}}"></script>
 
-    {{-- Contact Form Javascript File --}}
-    <script type="text/javascript" src="{{ asset('js/contactform.js') }}"></script>
-
-    {{-- Main js --}}
-    <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
+    <!-- Font Awesome -->
+    <script type="text/javascript" src="{{ asset('js/fontawesome-all.js') }}" async></script>
+    
 </body>
 </html>
