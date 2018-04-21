@@ -51,7 +51,7 @@
                     <li><a class="nav-link" href="{{ route('team.index') }}">{{ __('Kelola tim') }}</a></li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <img src="/avatars/{{Auth::user()->avatar}}" width="28px" height="28px" style="border-radius: 50%;" alt="">
+                                <img src="/avatars/{{Auth::user()->avatar}}" width="28px" height="28px" style="border-radius: 50%;" alt="">
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 

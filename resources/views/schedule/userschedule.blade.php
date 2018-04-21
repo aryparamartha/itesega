@@ -7,12 +7,20 @@
 @section('content')
 	<div class="card">
 		<div class="card-body">
-			<div class="alert alert-success" role="alert">
-				Tempat pertandingan: <b>Kampus TI</b>
-			</div>
+			@if(count($location))
+				@foreach($location as $l)
+					<div class="alert alert-success" role="alert">
+						<i class="fas fa-map-marker-alt"></i> Tempat pertandingan: <b>{{$l->location}}</b>
+					</div>
+				@endforeach
+			@else
+				<div class="alert alert-warning" role="alert">
+					<i class="fas fa-map-marker-alt"></i> Tempat pertandingan belum ditentukan</b>
+				</div>
+			@endif
 
 			<div class="table-responsive">
-				<table class="table table-striped table-sm">
+				<table id="datatables" class="table">
 					<thead>
 						<tr>
 							<th scope="col">#</th>

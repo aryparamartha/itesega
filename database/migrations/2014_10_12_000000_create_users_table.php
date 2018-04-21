@@ -15,11 +15,13 @@ class CreateUsersTable extends Migration {
 			$table->increments('id');
 			$table->string('name');
 			$table->string('teamname');
-			$table->string('description');
+			$table->text('description');
 			$table->string('email')->unique();
 			$table->string('phonenumber');
 			$table->string('password');
 			$table->string('avatar')->default('default.jpg');
+			$table->string('payment')->nullable();
+			$table->boolean('confirmation')->default(0);
 			$table->rememberToken();
 			$table->timestamps();
 		});

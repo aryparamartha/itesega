@@ -13,18 +13,16 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
-
+    
     <!-- Font Awesome -->
-    <script type="text/javascript" src="{{ asset('js/fontawesome-all.js') }}"></script>
-
+    <script type="text/javascript" src="{{ asset('js/fontawesome-all.js') }}" async></script>
+    
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/animate.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('font-awesome.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/ionicons.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('magnific-popup.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/datatables.min.css') }}">
 </head>
+    
 <body>
 	<nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark">
             <a class="navbar-brand" href="{{ url('/') }}">
@@ -49,6 +47,7 @@
                     @else
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <img src="/avatars/default.jpg" width="28px" height="28px" style="border-radius: 50%;" alt="">
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 
@@ -77,6 +76,10 @@
 	              			<li class="nav-item">
 	                			<a class="nav-link" href="{{ route('admin.home') }}">
                 				<i class="fas fa-home"></i> Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+	                			<a class="nav-link" href="{{ route('admin.account-list') }}">
+                				<i class="fas fa-user-secret"></i> Daftar Admin</a>
 	                		</li>
 			              	<li class="nav-item">
 				                <a class="nav-link" href="{{ route('jadwal.index') }}">
@@ -90,7 +93,7 @@
 	        	<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4 mt-5">
 		          	<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
 		            	<h1 class="h2">@yield('pagetitle')</h1>
-	            		<div class="btn-toolbar mb-2 mb-md-0">
+	            		{{-- <div class="btn-toolbar mb-2 mb-md-0">
 		              		<div class="btn-group mr-2">
 		                		<button class="btn btn-sm btn-outline-secondary">Share</button>
 		                		<button class="btn btn-sm btn-outline-secondary">Export</button>
@@ -99,7 +102,7 @@
 		                		<span data-feather="calendar"></span>
 		                	This week
 		              		</button>
-		            	</div>
+		            	</div> --}}
 	         	 	</div>
 
 	         	 	{{-- <canvas class="my-4" id="myChart" width="900" height="380"></canvas>--}}
@@ -112,18 +115,14 @@
 	</div>
 	<!-- Scripts -->
     <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/jquery-migrate.min.js') }}"></script>
-    <script src="{{ asset('js/app.js') }}">
-    </script><script type="text/javascript" src="{{ asset('js/easing.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/wow.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/hoverIntent.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/superfish.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/magnific-popup.min.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{asset('js/datatables.min.js')}}"></script>
 
-    {{-- Contact Form Javascript File --}}
-    <script type="text/javascript" src="{{ asset('js/contactform.js') }}"></script>
-
-    {{-- Main js --}}
-    <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
+    {{-- Custom js --}}
+    <script>
+        $(document).ready(function() {
+            $('#datatables').DataTable();
+        } );
+    </script>
 </body>
 </html>

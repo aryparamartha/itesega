@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DB;
+use App\MatchLocation;
 
 class UserScheduleController extends Controller {
 	/**
@@ -20,6 +21,7 @@ class UserScheduleController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function userIndex() {
+		$location = MatchLocation::all();
 		$schedule = DB::table('schedules')->join('users as team1', 'team1.id', '=', 'schedules.teamid1')
 			->join('users as team2', 'team2.id', '=', 'schedules.teamid2')
 			->select('schedules.*', 'team1.teamname as team1', 'team2.teamname as team2')
@@ -30,6 +32,6 @@ class UserScheduleController extends Controller {
 		// join users as team1 on team1.id = schedules.teamid1
 		// join users as team2 on team2.id = schedules.teamid2
 
-		return view('schedule.userschedule', compact('schedule'));
+		return view('schedule.userschedule', compact('schedule', 'location'));
 	}
 }

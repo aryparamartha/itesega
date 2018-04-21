@@ -6,9 +6,21 @@ use App\Member;
 use Auth;
 use Image;
 use File;
+use Validator;
+use Session;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller {
+	/**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+	}
+	
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -34,6 +46,31 @@ class MemberController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request) {
+		$validator = Validator::make($request->all(), [
+			'name' => 'required|string|max:255',
+			'steamid' => 'required|string|max:255',
+			'email' => 'required|string|email|max:255|unique:members',
+			'phonenumber' => 'required|string|max:255',
+			'address' => 'required|string',
+			'avatar' => 'nullable',
+		],[
+			'name.required' => 'Kolom nama harus diisi',
+			'name.max:255' => 'Nama tidak boleh lebih dari 255 karakter',
+			'steamid.required' => 'Kolom ID Steam harus diisi',
+			'steamid.max:255' => 'ID Steam tidak boleh lebih dari 255 karakter',
+			'email.unique' => 'Email sudah digunakan',
+			'email.max:255' => 'Email tidak boleh lebih dari 255 karakter',
+			'phonenumber.required' => 'Kolom nomor HP harus diisi',
+			'address.required' => 'kolom Alamat harus diisi',
+		]);
+		
+		if ($validator->fails()) {
+			Session::flash('error', 'Anggota gagal ditambahkan');
+            return redirect('/team')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
 		$member = new Member;
 				
 		$member->name = $request->name;
@@ -81,6 +118,31 @@ class MemberController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, $id) {
+		$validator = Validator::make($request->all(), [
+			'name' => 'required|string|max:255',
+			'steamid' => 'required|string|max:255',
+			'email' => 'required|string|email|max:255',
+			'phonenumber' => 'required|string|max:255',
+			'address' => 'required|string',
+			'avatar' => 'nullable',
+		],[
+			'name.required' => 'Kolom nama harus diisi',
+			'name.max:255' => 'Nama tidak boleh lebih dari 255 karakter',
+			'steamid.required' => 'Kolom ID Steam harus diisi',
+			'steamid.max:255' => 'ID Steam tidak boleh lebih dari 255 karakter',
+			'email.required' => 'Kolom email harus diisi',
+			'email.max:255' => 'Email tidak boleh lebih dari 255 karakter',
+			'phonenumber.required' => 'Kolom nomor HP harus diisi',
+			'address.required' => 'kolom Alamat harus diisi',
+		]);
+
+		if ($validator->fails()) {
+			Session::flash('error', 'Anggota gagal diubah');
+            return redirect('/team')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
 		$member = Member::find($id);
 		$member->name = $request->name;
 		$member->steamid = $request->steamid;

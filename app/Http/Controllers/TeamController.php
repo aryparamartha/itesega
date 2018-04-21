@@ -7,9 +7,21 @@ use App\User;
 use Auth;
 use Image;
 use File;
+use Validator;
+use Session;
 use Illuminate\Http\Request;
 
 class TeamController extends Controller {
+	/**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+	}
+	
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -68,6 +80,31 @@ class TeamController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, $id) {
+		$validator = Validator::make($request->all(),[
+			'name' => 'required|string|max:255',
+			'teamname' => 'required|string|max:255',
+			'description' => 'required|string',
+			'email' => 'required|string|email|max:255',
+			'phonenumber' => 'required|string|max:255',
+			'avatar' => 'nullable|image',
+		],[
+			'name.required' => 'Kolom nama harus diisi',
+			'name.max:255' => 'Kolom nama tim harus diisi',
+			'description.required' => 'Kolom deskripsi harus diisi',
+			'email.required' => 'Kolom email harus diisi',
+			'email.max:255' => 'Email tidak boleh lebih dari 255 karakter',
+			'phonenumber.required' => 'Kolom nomor HP harus diisi',
+			'phonenumber.max:255' => 'Kolom nomor HP harus diisi',
+		]);
+
+		if ($validator->fails()) {
+			Session::flash('error', 'Profil tim gagal diperbaharui');
+            return redirect('/team')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+		
+
 		$team = User::find(Auth::user()->id);
 		$team->name = $request->name;
 		$team->teamname = $request->teamname;
@@ -77,33 +114,47 @@ class TeamController extends Controller {
 
 		if($request->hasFile('avatar')){
 			if ($team->avatar != "default.jpg") {
-				$oldFileName= $team->avatar;
-				File::delete(public_path('/avatars/'. $oldFileName) );
+				$oldFileName = $team->avatar;
+				File::delete(public_path('/avatars/'. $oldFileName));
 			}
 
     		$avatar = $request->file('avatar');
-    		$filename = time() . '.' . $avatar->getClientOriginalExtension();
-    		Image::make($avatar)->save( public_path('/avatars/' . $filename ) );
-    		$team->avatar = $filename;
+    		$fileName = time() . '.' . $avatar->getClientOriginalExtension();
+    		Image::make($avatar)->save( public_path('/avatars/' . $fileName ) );
+    		$team->avatar = $fileName;
         }
 
 		$team->save();
 		return redirect('/team');
 	}
 
-	public function updateAvatar(Request $request)
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function updatePayment(Request $request, $id)
     {
-        // Handle the user upload of avatar
-    	if($request->hasFile('avatar')){
-    		$avatar = $request->file('avatar');
-    		$filename = time() . '.' . $avatar->getClientOriginalExtension();
-    		Image::make($avatar)->save( public_path('/avatars/' . $filename ) );
-
-    		$user = Auth::user();
-    		$user->avatar = $filename;
-    		$user->save();
-        }
-        return redirect('/team');
+		$validator = Validator::make($request->all(),[
+			'payment' => 'nullable', 
+		
+		]);
+		$team = User::find(Auth::user()->id);
+		if ($request->hasFile('payment')){
+			if ($team->payment){
+				$oldFileName = $team->payment;
+				File::delete(public_path('/avatars/' . $oldFileName));
+			}
+			
+			$payment = $request->file('payment');
+			$fileName = time() . '.' . $payment->getClientOriginalExtension();
+			Image::make($payment)->save(public_path('/avatars/' . $fileName));
+			$team->payment = $fileName;
+		}
+		$team->save();
+		return redirect('/team');
     }
 
 	/**
