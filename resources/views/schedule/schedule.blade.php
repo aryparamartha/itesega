@@ -89,7 +89,7 @@
 			</div>
 		</div>
 	@endif
-	<div class="card">
+	<div class="card mb-4 elevation">
 		<div class="card-body">
 			{{-- Add Schedule --}}
 			<button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#addJadwalModal"><i class="fas fa-calendar-plus"></i></button>

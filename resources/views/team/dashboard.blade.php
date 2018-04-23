@@ -1,7 +1,7 @@
 @extends('layouts.dashboard_layout')
 
 @section('pagetitle')
-	<b><i class="fas fa-home"></i> Dashboard</b>
+	<b><i class="fas fa-desktop"></i> Dashboard</b>
 @endsection
 
 @section('content')

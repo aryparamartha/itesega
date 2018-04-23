@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-	<div class="card mb-4">
+	<div class="card mb-4 elevation">
 		<div class="card-body">
 			<div class="table-responsive">
 				<table id="datatables" class="table">
@@ -34,7 +34,7 @@
 									</td>
 									<td>
 										@if($t->payment == null)
-											<center><i style="font-size: 24px" class="text-danger fas fa-times"></i></center>
+											<center><i style="font-size: 24px" class="text-danger fas fa-eye-slash"></i></center>
 										@else
 										{{-- Button Trigger Modal --}}
 											<p><a href="#" data-toggle="modal" data-target="#paymentPhoto{{$t->id}}" class="text-success"><i style="font-size: 24px" class="fas fa-eye"></i></a></p>						

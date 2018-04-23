@@ -52,7 +52,7 @@
                                 <a class="dropdown-item" href="{{ route('admin.logout') }}"
                                    onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                                <i class="fas fa-sign-out-alt"></i> {{ __('Logout') }}
                                 </a>
 
                                 <form id="logout-form" action="{{ route('admin.logout') }}" method="GET" style="display: none;">
@@ -71,8 +71,12 @@
 	          		<div class="sidebar-sticky">
 	            		<ul class="nav flex-column">
 	              			<li class="nav-item">
+	                			<a class="nav-link" href="#">
+                				<i class="fas fa-desktop"></i> Daftar Tim</a>
+                            </li>
+                            <li class="nav-item">
 	                			<a class="nav-link" href="{{ route('admin.home') }}">
-                				<i class="fas fa-home"></i> Dashboard</a>
+                				<i class="fas fa-users"></i> Daftar Tim</a>
                             </li>
                             <li class="nav-item">
 	                			<a class="nav-link" href="{{ route('admin.account-list') }}">

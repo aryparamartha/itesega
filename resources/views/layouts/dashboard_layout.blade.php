@@ -39,18 +39,18 @@
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto mr-5">
                 <!-- Authentication Links -->
-                <a class="nav-link" href="{{ route('team.index') }}">{{ __('Kelola tim') }}</a></li>
+                <a class="nav-link" href="{{ route('team.index') }}"><i class="fas fa-desktop"></i> {{ __('Kelola tim') }}</a></li>
                 <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                         <img src="/avatars/{{Auth::user()->avatar}}" width="28px" height="28px" style="border-radius: 50%;" alt="">
-                        {{ Auth::user()->teamname }} <span class="caret"></span>
+                        {{ Auth::user()->name }} <span class="caret"></span>
                     </a>
 
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ route('user.logout') }}"
                             onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
+                            <i class="fas fa-sign-out-alt"></i> {{ __('Logout') }}
                         </a>
 
                         <form id="logout-form" action="{{ route('user.logout') }}" method="GET" style="display: none;">
@@ -69,7 +69,7 @@
 	            		<ul class="nav flex-column">
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('team.index') }}">
-                                <i class="fas fa-home"></i> Dashboard</a>
+                                <i class="fas fa-desktop"></i> Dashboard</a>
                             </li>
                             <li class="nav-item">
                             <a class="nav-link" href="{{ route('user.jadwal') }}">
@@ -82,22 +82,8 @@
 	        	<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4 mt-5">
 		          	<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
 		            	<h1 class="h2">@yield('pagetitle')</h1>
-	            		{{-- <div class="btn-toolbar mb-2 mb-md-0">
-		              		<div class="btn-group mr-2">
-		                		<button class="btn btn-sm btn-outline-secondary">Share</button>
-		                		<button class="btn btn-sm btn-outline-secondary">Export</button>
-		              		</div>
-		              		<button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-		                		<span data-feather="calendar"></span>
-		                	This week
-		              		</button>
-		            	</div> --}}
 	         	 	</div>
-
-	         	 	{{-- <canvas class="my-4" id="myChart" width="900" height="380"></canvas>--}}
-
 	         	 	@yield('content')
-
 				</main>
 			</div>
 		</div>

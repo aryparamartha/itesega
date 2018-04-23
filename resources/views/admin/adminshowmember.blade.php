@@ -19,7 +19,7 @@
                                 <th>ID Steam</th>
                                 <th>Email</th>
                                 <th>Nomor ponsel</th>
-                                <th>Alamat</th>
+                                <th style="width: 150px;">Alamat</th>
                             </tr>
                         </thead>
                         <tbody>

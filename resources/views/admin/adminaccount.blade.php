@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-	<div class="card">
+	<div class="card mb-4 elevation">
 		<div class="card-body">
 			<button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addAdminModal">
 				<i class="fas fa-user-plus"></i>
