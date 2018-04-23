@@ -18,11 +18,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/datatables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}" rel="stylesheet">
-
-    
 </head>
-
-
 <body>
 	<nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark">
         <a class="navbar-brand" href="{{ url('/') }}">
@@ -66,8 +62,8 @@
     <div style="margin-top: 20px;">
 		<div class="container-fluid">
 			<div class="row">
-	        	<nav class="col-md-2 d-none d-md-block bg-light sidebar">
-	          		<div class="sidebar-sticky" style="margin-top:40px">
+	        	<nav class="col-md-2 d-none d-md-block bg-light sidebar"  style="margin-top:40px">
+	          		<div class="sidebar-sticky">
 	            		<ul class="nav flex-column">
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('team.index') }}">

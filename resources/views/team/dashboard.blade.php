@@ -5,194 +5,195 @@
 @endsection
 
 @section('content')
+	<div class="card mb-4 elevation">
+		<div class="card-body">
+			@if ($errors->any())
+			<div class="alert alert-danger">
+				@if(Session::has('error'))
+					<h4><i class="text-danger fas fa-times"></i> {{Session::get('error')}}</h4>
+				@endif
+				
+				<ul class="m-0">
+					@foreach ($errors->all() as $error)
+						<li>{{ $error }}</li>
+					@endforeach
+				</ul>
+			</div>
+			@endif
 
-	@if ($errors->any())
-	<div class="alert alert-danger">
-		@if(Session::has('error'))
-			<h4><i class="text-danger fas fa-times"></i> {{Session::get('error')}}</h4>
-		@endif
-		
-		<ul class="m-0">
-			@foreach ($errors->all() as $error)
-				<li>{{ $error }}</li>
-			@endforeach
-		</ul>
-	</div>
-	@endif
-
-	@if(Auth::user()->payment == null)
-		<div class="alert alert-warning" role="alert">
-			Tim <b>{{Auth::user()->teamname}}</b> belum melakukan pembayaran. Untuk melakukan pembayaran, 
-			Anda dapat melakukan pembayaran dengan mengirimkan biaya pendaftaran ke rekening xxxx-xxxxx-xxxxx dan mengirimkan foto bukti pembayaran dengan klik tombol berikut.<br>
-			<button type="button" class="btn btn-dark mt-2" data-toggle="modal" data-target="#payment">
-				<i class="fas fa-cloud-upload-alt"></i>
-			</button>
-		</div>
-	
-	@elseif((Auth::user()->payment != null) && (Auth::user()->confirmation == 0))
-		<div class="alert alert-warning" role="alert">
-			Tim <b>{{Auth::user()->teamname}}</b> sudah melakukan pembayaran. Status menunggu konfirmasi dari Admin. <br>
-			<button type="button" class="btn btn-dark mt-2" data-toggle="modal" data-target="#payment">
-				<i class="fas fa-cloud-upload-alt"></i>
-			</button>
-		</div>
-	
-	@elseif((Auth::user()->payment != null) && (Auth::user()->confirmation == 1))
-		<div class="alert alert-success" role="alert">
-			Tim <b>{{Auth::user()->teamname}}</b> sudah melakukan pembayaran. Pembayaran sudah divalidasi oleh Admin.
-		</div>
-	@endif
-
-	<!-- Modal -->
-	<div class="modal fade" id="payment" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalCenterTitle"><i class="fas fa-cloud-upload-alt"></i> Upload bukti pembayaran</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
+			@if(Auth::user()->payment == null)
+				<div class="alert alert-warning" role="alert">
+					Tim <b>{{Auth::user()->teamname}}</b> belum melakukan pembayaran. Untuk melakukan pembayaran, 
+					Anda dapat melakukan pembayaran dengan mengirimkan biaya pendaftaran ke rekening xxxx-xxxxx-xxxxx dan mengirimkan foto bukti pembayaran dengan klik tombol berikut.<br>
+					<button type="button" class="btn btn-dark mt-2" data-toggle="modal" data-target="#payment">
+						<i class="fas fa-cloud-upload-alt"></i>
 					</button>
 				</div>
-				<form enctype="multipart/form-data" action="/team/update-payment/{{Auth::user()->id}}" method="POST">
-					@csrf
-					{{method_field('PUT')}}
-					<div class="modal-body">
-						<div class="alert alert-warning" role="alert">
-							Ukuran foto <span>tidak boleh</span> lebih dari 2 MB
-						</div>
-						<input id="file" class="" type="file" name="payment">
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i></button>
-						<button type="submit" name="submit" value="Simpan" class="btn btn-primary" required><i class="far fa-save"></i></button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-
-	<div class="row justify-content-start pb-2" style="margin-left: 2px">
-		<div class="col-md-4 p-0">
-			<img style="" class="mb-2" height="auto" width="300px" src="/avatars/{{ Auth::user()->avatar}}"><br>
-		</div>	
-
-		<div class="col-md-7 col-sm-7 p-0">
-			<h5><b>Tim:</b> {{ Auth::user()->teamname }}</h5>
-			<p><b>Deskripsi:</b> {{ Auth::user()->description }}</p>
-			<p><b>Dibuat tanggal:</b> {{date('d F Y', strtotime(Auth::user()->created_at))}}</p>
-			<button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#edit-team">
-				<i class="fas fa-edit"></i>
-			</button>
+			
+			@elseif((Auth::user()->payment != null) && (Auth::user()->confirmation == 0))
+				<div class="alert alert-warning" role="alert">
+					Tim <b>{{Auth::user()->teamname}}</b> sudah melakukan pembayaran. Status menunggu konfirmasi dari Admin. <br>
+					<button type="button" class="btn btn-dark mt-2" data-toggle="modal" data-target="#payment">
+						<i class="fas fa-cloud-upload-alt"></i>
+					</button>
+				</div>
+			
+			@elseif((Auth::user()->payment != null) && (Auth::user()->confirmation == 1))
+				<div class="alert alert-success" role="alert">
+					Tim <b>{{Auth::user()->teamname}}</b> sudah melakukan pembayaran. Pembayaran sudah divalidasi oleh Admin.
+				</div>
+			@endif
 
 			<!-- Modal -->
-			<div class="modal fade" id="edit-team" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal fade" id="payment" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-edit"></i> Perbaharui profil tim</h5>
+							<h5 class="modal-title" id="exampleModalCenterTitle"><i class="fas fa-cloud-upload-alt"></i> Upload bukti pembayaran</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
-						<form enctype="multipart/form-data" action="/team/{{Auth::user()->id}}" method="POST">
+						<form enctype="multipart/form-data" action="/team/update-payment/{{Auth::user()->id}}" method="POST">
 							@csrf
 							{{method_field('PUT')}}
 							<div class="modal-body">
-								<div class="form-group row">
-									<label for="name" class="col-md-4 col-form-label text-md-left">{{ __('Username') }}</label>
-		
-									<div class="col-md-8">
-										<input id="name" type="text" value="{{Auth::user()->name}}" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" required autofocus>
-		
-									@if ($errors->has('name'))
-										<span class="invalid-feedback">
-											<strong>{{ $errors->first('name') }}</strong>
-										</span>
-									@endif
-								</div>
-								</div>
-					
-								<div class="form-group row">
-									<label for="teamname" class="col-md-4 col-form-label text-md-left">{{ __('Nama Tim') }}</label>
-		
-									<div class="col-md-8">
-										<input id="teamname" type="text" value="{{Auth::user()->teamname}}" class="form-control{{ $errors->has('teamname') ? ' is-invalid' : '' }}" name="teamname" required>
-		
-									@if ($errors->has('teamname'))
-										<span class="invalid-feedback">
-											<strong>{{ $errors->first('teamname') }}</strong>
-										</span>
-									@endif
-								</div>
-								</div>
-					
-								<div class="form-group row">
-									<label for="description" class="col-md-4 col-form-label text-md-left">{{ __('Deskripsi') }}</label>
-		
-									<div class="col-md-8">
-										<textarea name="description" id="description" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }} mb-2" required>{{Auth::user()->description}}"</textarea>
-		
-									@if ($errors->has('description'))
-										<span class="invalid-feedback">
-											<strong>{{ $errors->first('description') }}</strong>
-										</span>
-									@endif
-								</div>
-								</div>
-					
-					
-								<div class="form-group row">
-									<label for="email" class="col-md-4 col-form-label text-md-left">{{ __('Email') }}</label>
-		
-									<div class="col-md-8">
-										<input id="email" type="text" value="{{Auth::user()->email}}" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" required>
-		
-									@if ($errors->has('email'))
-										<span class="invalid-feedback">
-											<strong>{{ $errors->first('email') }}</strong>
-										</span>
-									@endif
-								</div>
-								</div>
-					
-								<div class="form-group row">
-									<label for="phonenumber" class="col-md-4 col-form-label text-md-left">{{ __('Nomor HP') }}</label>
-		
-									<div class="col-md-8">
-										<input id="phonenumber" type="text" value="{{Auth::user()->phonenumber}}" class="form-control{{ $errors->has('phonenumber') ? ' is-invalid' : '' }}" name="phonenumber" required>
-		
-									@if ($errors->has('phonenumber'))
-										<span class="invalid-feedback">
-											<strong>{{ $errors->first('phonenumber') }}</strong>
-										</span>
-									@endif
-								</div>
-								</div>
-
-								<div class="alert alert-warning text-md-left" role="alert">
+								<div class="alert alert-warning" role="alert">
 									Ukuran foto <span>tidak boleh</span> lebih dari 2 MB
 								</div>
-		
-								<div class="row">							
-									<label class="col-md-4" for="avatar">Foto profil</label>
-									<input id="file" type="file" name="avatar" class="col-md-7">
-							</div>
+								<input id="file" class="" type="file" name="payment">
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i></button>
 								<button type="submit" name="submit" value="Simpan" class="btn btn-primary" required><i class="far fa-save"></i></button>
 							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<div class="row justify-content-start pb-2" style="margin-left: 2px">
+				<div class="col-md-4 p-0">
+					<img style="" class="mb-2" height="auto" width="300px" src="/avatars/{{ Auth::user()->avatar}}"><br>
+				</div>	
+
+				<div class="col-md-7 col-sm-7 p-0">
+					<h5><b>Tim:</b> {{ Auth::user()->teamname }}</h5>
+					<p><b>Deskripsi:</b> {{ Auth::user()->description }}</p>
+					<p><b>Dibuat tanggal:</b> {{date('d F Y', strtotime(Auth::user()->created_at))}}</p>
+					<button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#edit-team">
+						<i class="fas fa-edit"></i>
+					</button>
+
+					<!-- Modal -->
+					<div class="modal fade" id="edit-team" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-edit"></i> Perbaharui profil tim</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<form enctype="multipart/form-data" action="/team/{{Auth::user()->id}}" method="POST">
+									@csrf
+									{{method_field('PUT')}}
+									<div class="modal-body">
+										<div class="form-group row">
+											<label for="name" class="col-md-4 col-form-label text-md-left">{{ __('Username') }}</label>
+				
+											<div class="col-md-8">
+												<input id="name" type="text" value="{{Auth::user()->name}}" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" required autofocus>
+				
+											@if ($errors->has('name'))
+												<span class="invalid-feedback">
+													<strong>{{ $errors->first('name') }}</strong>
+												</span>
+											@endif
+										</div>
+										</div>
+							
+										<div class="form-group row">
+											<label for="teamname" class="col-md-4 col-form-label text-md-left">{{ __('Nama Tim') }}</label>
+				
+											<div class="col-md-8">
+												<input id="teamname" type="text" value="{{Auth::user()->teamname}}" class="form-control{{ $errors->has('teamname') ? ' is-invalid' : '' }}" name="teamname" required>
+				
+											@if ($errors->has('teamname'))
+												<span class="invalid-feedback">
+													<strong>{{ $errors->first('teamname') }}</strong>
+												</span>
+											@endif
+										</div>
+										</div>
+							
+										<div class="form-group row">
+											<label for="description" class="col-md-4 col-form-label text-md-left">{{ __('Deskripsi') }}</label>
+				
+											<div class="col-md-8">
+												<textarea name="description" id="description" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }} mb-2" required>{{Auth::user()->description}}"</textarea>
+				
+											@if ($errors->has('description'))
+												<span class="invalid-feedback">
+													<strong>{{ $errors->first('description') }}</strong>
+												</span>
+											@endif
+										</div>
+										</div>
+							
+							
+										<div class="form-group row">
+											<label for="email" class="col-md-4 col-form-label text-md-left">{{ __('Email') }}</label>
+				
+											<div class="col-md-8">
+												<input id="email" type="text" value="{{Auth::user()->email}}" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" required>
+				
+											@if ($errors->has('email'))
+												<span class="invalid-feedback">
+													<strong>{{ $errors->first('email') }}</strong>
+												</span>
+											@endif
+										</div>
+										</div>
+							
+										<div class="form-group row">
+											<label for="phonenumber" class="col-md-4 col-form-label text-md-left">{{ __('Nomor HP') }}</label>
+				
+											<div class="col-md-8">
+												<input id="phonenumber" type="text" value="{{Auth::user()->phonenumber}}" class="form-control{{ $errors->has('phonenumber') ? ' is-invalid' : '' }}" name="phonenumber" required>
+				
+											@if ($errors->has('phonenumber'))
+												<span class="invalid-feedback">
+													<strong>{{ $errors->first('phonenumber') }}</strong>
+												</span>
+											@endif
+										</div>
+										</div>
+
+										<div class="alert alert-warning text-md-left" role="alert">
+											Ukuran foto <span>tidak boleh</span> lebih dari 2 MB
+										</div>
+				
+										<div class="row">							
+											<label class="col-md-4" for="avatar">Foto profil</label>
+											<input id="file" type="file" name="avatar" class="col-md-7">
+									</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i></button>
+										<button type="submit" name="submit" value="Simpan" class="btn btn-primary" required><i class="far fa-save"></i></button>
+									</div>
+								</div>
+							</form>
 						</div>
-					</form>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<hr class="divider2">
-
-	<h2><i class="fas fa-users"></i> Detail anggota</h2>
-	<div class="card mb-4">
+	<div class="card mb-4 elevation">
+		<h2 class="px-4 pt-4"><i class="fas fa-users"></i> Detail anggota</h2>
 		<div class="card-body">
 			<button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#create-team">
 				<i class="fas fa-user-plus"></i>

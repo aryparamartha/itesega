@@ -7,7 +7,7 @@
 @section('content')
 	@if(count($location))
 		@foreach($location as $l)
-			<div class="alert alert-success" role="alert">
+			<div class="alert alert-success elevation" role="alert">
 				<i class="fas fa-map-marker-alt"></i> Tempat pertandingan: <b>{{$l->location}}</b><br>
 				{{-- Edit match location --}}
 				<button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#changeLocationModal"><i class="fas fa-map"></i></button>
