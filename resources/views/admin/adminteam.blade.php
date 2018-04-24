@@ -1,5 +1,9 @@
 @extends('layouts.admin_layout')
 
+@section('active3')
+	active
+@endsection
+
 @section('pagetitle')
 	<b><i class="fas fa-users"></i> Daftar Tim</b>
 @endsection
@@ -37,8 +41,8 @@
 											<center><i style="font-size: 24px" class="text-danger fas fa-eye-slash"></i></center>
 										@else
 										{{-- Button Trigger Modal --}}
-											<p><a href="#" data-toggle="modal" data-target="#paymentPhoto{{$t->id}}" class="text-success"><i style="font-size: 24px" class="fas fa-eye"></i></a></p>						
-												
+											<p><a href="#" data-toggle="modal" data-target="#paymentPhoto{{$t->id}}" class="text-success"><i style="font-size: 24px" class="fas fa-eye"></i></a></p>
+
 											<!-- Modal -->
 											<div class="modal fade" id="paymentPhoto{{$t->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 												<div class="modal-dialog modal-dialog-centered" role="document">

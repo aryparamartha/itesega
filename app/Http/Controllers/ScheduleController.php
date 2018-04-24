@@ -47,8 +47,7 @@ class ScheduleController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create() {
-		$team = User::all();
-		return view('schedule.createschedule', compact('team'));
+		//
 	}
 
 	/**
@@ -74,7 +73,7 @@ class ScheduleController extends Controller {
                         ->withErrors($validator)
                         ->withInput();
         }
-		
+
 		$schedule = new Schedule;
 		$schedule->date = $request->date;
 		$schedule->time = $request->time;
@@ -139,7 +138,7 @@ class ScheduleController extends Controller {
 		$schedule->teamid2 = $request->teamid2;
 		$schedule->save();
 
-		return redirect('/admin/jadwal');
+		return redirect('/admin/schedule');
 	}
 
 	/**
@@ -151,7 +150,7 @@ class ScheduleController extends Controller {
 	public function destroy($id) {
 		$schedule = Schedule::find($id);
 		$schedule->delete();
-		return redirect('/admin/jadwal');
+		return redirect('/admin/schedule');
 	}
 
 	/**
@@ -177,7 +176,7 @@ class ScheduleController extends Controller {
 		$schedule->location = $request->location;
 		$schedule->save();
 
-		return redirect('/admin/jadwal');
+		return redirect('/admin/schedule');
 	}
 
 	/**
@@ -204,6 +203,6 @@ class ScheduleController extends Controller {
 		$schedule->location = $request->location;
 		$schedule->save();
 
-		return redirect('/admin/jadwal');
+		return redirect('/admin/schedule');
 	}
 }

@@ -1,5 +1,9 @@
 @extends('layouts.admin_layout')
 
+@section('active4')
+	active
+@endsection
+
 @section('pagetitle')
 	<b><i class="fas fa-calendar-alt"></i> Jadwal</b>
 @endsection
@@ -8,7 +12,7 @@
 	@if(count($location))
 		@foreach($location as $l)
 			<div class="alert alert-success elevation" role="alert">
-				<i class="fas fa-map-marker-alt"></i> Tempat pertandingan: <b>{{$l->location}}</b><br>
+				<h5><i class="fas fa-map-marker-alt"></i> Lokasi pertandingan: <b>{{$l->location}}</b><br></h5>
 				{{-- Edit match location --}}
 				<button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#changeLocationModal"><i class="fas fa-map"></i></button>
 				<!-- Modal -->
@@ -16,7 +20,7 @@
 					<div class="modal-dialog modal-dialog-centered" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLongTitle"><i class="fas fa-map-marker-alt text-secondary"></i><span class="text-secondary"> Ubah Lokasi Pertandaingan</span></h5>
+								<h5 class="modal-title text-dark" id="exampleModalLongTitle"><i class="fas fa-map-marker-alt"></i> Ubah Lokasi Pertandaingan</h5>
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 								</button>
@@ -50,7 +54,7 @@
 		@endforeach
 	@else
 		<div class="alert alert-warning" role="alert">
-			<i class="fas fa-map-marker-alt"></i> Tempat pertandingan <b>belum ditentukan</b><br>
+			<p><i class="fas fa-map-marker-alt"></i> Lokasi pertandingan <b>belum ditentukan</b><br></p>
 			{{-- Edit match location --}}
 			<button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#changeLocationModal"><i class="fas fa-map"></i></button>
 			<!-- Modal -->
@@ -103,7 +107,7 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 						</div>
-						<form method="POST" action="{{route('jadwal.index')}}">
+						<form method="POST" action="{{route('schedule.store')}}">
 							@csrf
 							<div class="modal-body">
 								<div class="form-group row">
@@ -118,7 +122,7 @@
 										@endif
 									</div>
 								</div>
-				
+
 								<div class="form-group row">
 									<label class="col-md-4 col-form-label text-md-left" for="time">Waktu</label>
 
@@ -131,7 +135,7 @@
 										@endif
 									</div>
 								</div>
-				
+
 								<div class="form-group row mb-0">
 									<label class="col-md-4 col-form-label text-md-left" for="match">Pertandingan</label>
 									<div class="form-group col-md-8">
@@ -195,7 +199,7 @@
 														<span aria-hidden="true">&times;</span>
 													</button>
 													</div>
-													<form method="POST" action="/admin/jadwal/{{$s->id}}">
+													<form method="POST" action="/admin/schedule/{{$s->id}}">
 														@csrf
 														{{method_field('PUT')}}
 														<div class="modal-body">
@@ -211,7 +215,7 @@
 																	@endif
 																</div>
 															</div>
-											
+
 															<div class="form-group row">
 																<label class="col-md-4 col-form-label text-md-left" for="time">Waktu</label>
 
@@ -224,7 +228,7 @@
 																	@endif
 																</div>
 															</div>
-											
+
 															<div class="form-group row mb-0">
 																<label class="col-md-4 col-form-label text-md-left" for="match">Pertandingan</label>
 																<div class="form-group col-md-8">
@@ -273,7 +277,7 @@
 													</div>
 													<div class="modal-footer">
 														<button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i></button>
-														<form class="form group" action="/admin/jadwal/{{$s->id}}" method="POST">
+														<form class="form group" action="/admin/schedule/{{$s->id}}" method="POST">
 															@csrf
 															{{method_field('DELETE')}}
 															<button style="border-radius: 0px" type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>

@@ -9,6 +9,7 @@ use App\Member;
 use Validator;
 use Session;
 use Hash;
+use DB;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller {
@@ -28,7 +29,11 @@ class AdminController extends Controller {
 	 */
 	public function index() {
 		$team = User::all();
-		return view('admin.admin', compact('team'));
+		$teams = DB::table('users')->count();
+		$team_paid = DB::table('users')->whereNotNull('payment')->get()->count();
+		$team_notpaid = DB::table('users')->whereNull('payment')->get()->count();
+		$team_unconfirmed = DB::table('users')->where('payment', '=', 0)->get()->count();
+		return view('admin.dashboardadmin', compact('team', 'teams', 'team_paid', 'team_notpaid', 'team_unconfirmed'));
 	}
 
 	/**
@@ -37,7 +42,7 @@ class AdminController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create() {
-		return view('admin.createadmin');
+		//
 	}
 
 	/**
@@ -58,7 +63,7 @@ class AdminController extends Controller {
 			'email.max:255' => 'Email tidak boleh lebih dari 255 karakter',
 			'password.required' => 'Password harus diisi',
 		]);
-		
+
 		if ($validator->fails()) {
 			Session::flash('error', 'Admin gagal ditambahkan');
             return redirect('/team')
@@ -115,7 +120,7 @@ class AdminController extends Controller {
 			'email.required' => 'Kolom Email harus diisi',
 			'password.required' => 'Password harus diisi',
 		]);
-		
+
 		if ($validator->fails()) {
 			Session::flash('error', 'Admin gagal diubah');
             return redirect('/team')
@@ -153,7 +158,7 @@ class AdminController extends Controller {
 		$team = User::find($id);
 		$team->confirmation = 1;
 		$team->save();
-		return redirect('/admin/home');
+		return redirect('/admin/team');
 	}
 
 	/**
@@ -167,7 +172,7 @@ class AdminController extends Controller {
 		$team = User::find($id);
 		$team->confirmation = 0;
 		$team->save();
-		return redirect('/admin/home');
+		return redirect('/admin/team');
 	}
 
 	/**
@@ -178,5 +183,15 @@ class AdminController extends Controller {
 	public function adminIndex() {
 		$admin = Admin::all();
 		return view('admin.adminaccount', compact('admin'));
+	}
+
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function team() {
+		$team = User::all();
+		return view('admin.adminteam', compact('team'));
 	}
 }
