@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.auth_layout')
 
 @section('content')
-<div class="container" style="margin-top: 120px;">
+<div class="container">
     <div class="row justify-content-center">
         <form class="col-md-3 form-group" method="POST" action="{{ route('login') }}">
             @csrf

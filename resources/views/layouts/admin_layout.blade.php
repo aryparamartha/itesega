@@ -12,7 +12,7 @@
 		<title>{{ config('app.name', 'Laravel') }}</title>
 
 		<!-- Styles -->
-		<link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+		{{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}"> --}}
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/datatables.min.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}" rel="stylesheet">
 		<link rel="stylesheet" href="{{asset('css/main.css')}}">
@@ -22,7 +22,7 @@
 </head>
 <body class="app sidebar-mini rtl">
 	<!-- Navbar-->
-	<header class="app-header"><a class="app-header__logo" href="index.html">IT-ESEGA</a>
+	<header class="app-header"><a class="app-header__logo" href="/">IT-ESEGA</a>
 		<!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
 		<!-- Navbar Right Menu-->
 		<ul class="app-nav">

@@ -12,17 +12,18 @@
 		<title>{{ config('app.name', 'Laravel') }}</title>
 
 		<!-- Styles -->
-		<link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+		{{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}"> --}}
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/datatables.min.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}" rel="stylesheet">
 		<link rel="stylesheet" href="{{asset('css/main.css')}}">
+		<link rel="stylesheet" href="{{asset("css/animate.min.css")}}">
 
 		<!-- Font Awesome -->
 		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body class="app sidebar-mini rtl">
 	<!-- Navbar-->
-	<header class="app-header"><a class="app-header__logo" href="index.html">IT-ESEGA</a>
+	<header class="app-header"><a class="app-header__logo" href="/">IT-ESEGA</a>
 		<!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
 		<!-- Navbar Right Menu-->
 		<ul class="app-nav">
@@ -43,9 +44,9 @@
 			<!-- User Menu-->
 			<li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i class="fa fa-user fa-lg"></i></a>
 				<ul class="dropdown-menu settings-menu dropdown-menu-right">
-					<li><a class="dropdown-item" href="page-user.html"><i class="fa fa-cog fa-lg"></i> Settings</a></li>
-					<li><a class="dropdown-item" href="page-user.html"><i class="fa fa-user fa-lg"></i> Profile</a></li>
-					<li><a class="dropdown-item" href="page-login.html"><i class="fas fa-sign-out-alt fa-lg"></i> Logout</a></li>
+					<li><a class="dropdown-item" href="#"><i class="fa fa-cog fa-lg"></i> Settings</a></li>
+					<li><a class="dropdown-item" href="#"><i class="fa fa-user fa-lg"></i> Profile</a></li>
+					<li><a class="dropdown-item" href="{{route("user.logout")}}"><i class="fas fa-sign-out-alt fa-lg"></i> Logout</a></li>
 				</ul>
 			</li>
 		</ul>

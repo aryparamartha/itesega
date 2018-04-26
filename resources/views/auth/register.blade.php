@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.auth_layout')
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center" style="margin-top: 80px">
+    <div class="row justify-content-center mt-2">
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header pb-0"><h4>{{ __('Daftar') }}</h4></div>
@@ -104,10 +104,13 @@
                         </div>
 
                         <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
+                            <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
+                                    {{ __('Daftar') }}
                                 </button>
+                                    <a style="font-size: 12px;" class="btn btn-link" href="{{ route('login') }}">
+                                        {{ __('Sudah memiliki akun?') }}
+                                    </a>
                             </div>
                         </div>
                     </form>

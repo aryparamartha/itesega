@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.auth_layout')
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card" style="margin-top: 120px">
-                <div class="card-header">{{ __('Admin Reset Password') }}</div>
+            <div class="card mt-5"
+                <div class="card-header"><h4>{{ __('Admin Reset Password') }}</h4></div>
 
                 <div class="card-body">
                     <form method="POST" action="/admin/password/reset">

@@ -12,71 +12,72 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700" rel="stylesheet">
 
     <!-- Font Awesome -->
     <script type="text/javascript" src="{{ asset('js/fontawesome-all.js') }}"></script>
+
+    <!-- Library Css -->
+    <link rel="stylesheet" href="{{asset("css/animate.min.css")}}">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
 </head>
 <body>
-    <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark">
+    <header id="header">
         <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- Left Side Of Navbar -->
-                <ul class="navbar-nav mr-auto">
-
-                </ul>
-
-                <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ml-auto">
-                    <!-- Authentication Links -->
-                    @guest
-                        <li><a class="nav-link" href="{{ route('login') }}"><i class="fas fa-sign-in-alt"></i> {{ __('Login') }}</a></li>
-                        <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
-                    @else
-                    <li><a class="nav-link" href="{{ route('team.index') }}"><i class="fas fa-desktop"></i> {{ __('Kelola tim') }}</a></li>
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                <img src="/avatars/{{Auth::user()->avatar}}" width="28px" height="28px" style="border-radius: 50%;" alt="">
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
-
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('user.logout') }}"
-                                   onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                    <i class="fas fa-sign-out-alt"></i>{{ __('Logout') }}
-                                </a>
-
-                                <form id="logout-form" action="{{ route('user.logout') }}" method="GET" style="display: none;">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
-                    @endguest
-                </ul>
-            </div>
+        <div id="logo" class="pull-left">
+        <a href="#hero"><img src="img/logo.png" width="10%" height="10%" alt="" title="" /></img></a>
+        <!-- Uncomment below if you prefer to use a text logo -->
+        <!--<h1><a href="#hero">Regna</a></h1>-->
         </div>
-    </nav>
+
+        <nav id="nav-menu-container">
+        <ul class="nav-menu">
+            <li class="menu-active"><a href="#hero"><i class="fas fa-home mr-1"></i> Home</a></li>
+            <li><a href="#about"><i class="fas fa-info mr-1"></i> Tentang Kami</a></li>
+            <li><a href="#cara-pendaftaran"><i class="fas fa-file-alt mr-1"></i> Cara Pendaftaran</a></li>
+            <li><a href="#contact"><i class="fas fa-phone mr-1"></i> Hubungi Kami</a></li>
+            <li><a href="/team"><i class="fas fa-users mr-1"></i> Kelola Team</a></li>
+
+            @guest
+                <li class="menu-has-children"><a href="#">Menu<i class="fas fa-chevron-down ml-1"></i></a>
+                    <ul>
+                        <li><a href="{{ route('login') }}"><i class="fas fa-user"></i> Masuk</a></li>
+                        <li><a href="{{ route('register') }}"><i class="fas fa-user-plus"></i> Buat Akun</a></li>
+                    </ul>
+                </li>
+            @else
+                <li class="menu-has-children"><a href="#">Hai, {{Auth::user()->name}} <i class="fas fa-chevron-down ml-1"></i></a>
+                    <ul>
+                        <li><a href="{{ route('user.logout') }}"><i class="fas fa-sign-out-alt"></i> Keluar</a></li>
+                    </ul>
+                </li>
+            @endguest
+        </ul>
+        </nav><!-- #nav-menu-container -->
+    </div>
+    </header><!-- #header -->
+
     @yield('content')
 
     <!-- Scripts -->
-    <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{asset('js/datatables.min.js')}}"></script>
+    <script src="{{asset("js/lib/jquery/jquery.min.js")}}"></script>
+    <script src="{{asset("js/lib/jquery/jquery-migrate.min.js")}}"></script>
+    <script src="{{asset("js/lib/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
+    <script src="{{asset("js/lib/easing/easing.min.js")}}"></script>
+    <script src="{{asset("js/lib/wow/wow.min.js")}}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8HeI8o-c1NppZA-92oYlXakhDPYR7XMY"></script>
+    <script src="{{asset("js/lib/waypoints/waypoints.min.js")}}"></script>
+    <script src="{{asset("js/lib/counterup/counterup.min.js")}}"></script>
+    <script src="{{asset("js/lib/superfish/hoverIntent.js")}}"></script>
+    <script src="{{asset("js/lib/superfish/superfish.min.js")}}"></script>
+    <script src="{{asset("js/contactform/contactform.js")}}"></script>
+    <script src="{{asset("js/js/main.js")}}"></script>
 
     <!-- Font Awesome -->
     <script type="text/javascript" src="{{ asset('js/fontawesome-all.js') }}" async></script>
-    
 </body>
 </html>
