@@ -6,7 +6,7 @@
 @endsection
 
 @section('pagetitle')
-	<b><i class="fas fa-calendar-alt"></i> Dashboard</b>
+	<b><i class="fas fa-calendar-alt"></i> Jadwal</b>
 @endsection
 @section('content')
 	<div class="card mb-4 elevation">

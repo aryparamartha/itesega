@@ -20,7 +20,7 @@ class MemberController extends Controller {
     {
         $this->middleware('auth');
 	}
-	
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -63,7 +63,7 @@ class MemberController extends Controller {
 			'phonenumber.required' => 'Kolom nomor HP harus diisi',
 			'address.required' => 'kolom Alamat harus diisi',
 		]);
-		
+
 		if ($validator->fails()) {
 			Session::flash('error', 'Anggota gagal ditambahkan');
             return redirect('/team')
@@ -72,7 +72,7 @@ class MemberController extends Controller {
         }
 
 		$member = new Member;
-				
+
 		$member->name = $request->name;
 		$member->steamid = $request->steamid;
 		$member->email = $request->email;
@@ -88,7 +88,7 @@ class MemberController extends Controller {
 		}
 
 		$member->save();
-
+		Session::flash('success', 'Anggota berhasil ditambahkan');
 		return redirect('/team');
 	}
 
@@ -149,7 +149,7 @@ class MemberController extends Controller {
 		$member->email = $request->email;
 		$member->phonenumber = $request->phonenumber;
 		$member->address = $request->address;
-		
+
 		if($request->hasFile('avatar')){
 			if ($member->avatar != "default.jpg") {
 				$oldFileName= $member->avatar;
@@ -163,6 +163,7 @@ class MemberController extends Controller {
         }
 
 		$member->save();
+		Session::flash('success', 'Anggota berhasil diperbaharui');
 		return redirect('/team');
 	}
 
@@ -178,7 +179,7 @@ class MemberController extends Controller {
 			$oldFileName= $member->avatar;
 			File::delete(public_path('/avatars/'. $oldFileName) );
 		}
-
+		Session::flash('success', 'Anggota berhasil dihapus');
 		return redirect('/team');
 	}
 }

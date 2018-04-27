@@ -37,13 +37,16 @@
         <nav id="nav-menu-container">
         <ul class="nav-menu">
             <li class="menu-active"><a href="#hero"><i class="fas fa-home mr-1"></i> Home</a></li>
-            <li><a href="#about"><i class="fas fa-info mr-1"></i> Tentang Kami</a></li>
-            <li><a href="#cara-pendaftaran"><i class="fas fa-file-alt mr-1"></i> Cara Pendaftaran</a></li>
-            <li><a href="#contact"><i class="fas fa-phone mr-1"></i> Hubungi Kami</a></li>
-            <li><a href="/team"><i class="fas fa-users mr-1"></i> Kelola Team</a></li>
+            <li class="menu-has-children"><a href="#">Menu<i class="fas fa-chevron-down ml-1"></i></a>
+                <ul>
+                    <li><a href="#about"><i class="fas fa-info mr-1"></i> Tentang Kami</a></li>
+                    <li><a href="#cara-pendaftaran"><i class="fas fa-file-alt mr-1"></i> Cara Pendaftaran</a></li>
+                    <li><a href="#contact"><i class="fas fa-phone mr-1"></i> Hubungi Kami</a></li>
+                </ul>
+            </li>
 
             @guest
-                <li class="menu-has-children"><a href="#">Menu<i class="fas fa-chevron-down ml-1"></i></a>
+                <li class="menu-has-children"><a href="#">Masuk<i class="fas fa-chevron-down ml-1"></i></a>
                     <ul>
                         <li><a href="{{ route('login') }}"><i class="fas fa-user"></i> Masuk</a></li>
                         <li><a href="{{ route('register') }}"><i class="fas fa-user-plus"></i> Buat Akun</a></li>
@@ -52,6 +55,7 @@
             @else
                 <li class="menu-has-children"><a href="#">Hai, {{Auth::user()->name}} <i class="fas fa-chevron-down ml-1"></i></a>
                     <ul>
+                        <li><a href="/team"><i class="fas fa-users mr-1"></i> Kelola Team</a></li>
                         <li><a href="{{ route('user.logout') }}"><i class="fas fa-sign-out-alt"></i> Keluar</a></li>
                     </ul>
                 </li>

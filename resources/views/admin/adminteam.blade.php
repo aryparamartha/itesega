@@ -14,12 +14,12 @@
 			<div class="table-responsive">
 				<table id="datatables" class="table">
 					<thead>
-						<th scope="col">#</th>
-						<th scope="col">Nama</th>
-						<th scope="col">Status Pembayaran</th>
-						<th scope="col">Bukti Pembayaran</th>
-						<th scope="col">Status Konfirmasi</th>
-						<th scope="col">Aksi</th>
+						<th>#</th>
+						<th><center>Nama</center></th>
+						<th><center>Status Pembayaran</center></th>
+						<th><center>Bukti Pembayaran</center></th>
+						<th><center>Status Konfirmasi</center></th>
+						<th><center>Aksi</center></th>
 					</thead>
 					<tbody>
 						@if(count($team))
@@ -27,7 +27,7 @@
 								<tr>
 									<td>{{$loop->iteration}}</td>
 									<td>
-										<p><a onclick="team_member({{ $t->id }})" href="#" data-toggle="modal" data-target="#teamDetail{{$t->id}}" class="text-dark"><b>{{$t->teamname}}</b></a></p>
+										<center><a onclick="team_member({{ $t->id }})" href="#" data-toggle="modal" data-target="#teamDetail{{$t->id}}" class="text-dark"><b>{{$t->teamname}}</b></a></center>
 									</td>
 									<td>
 										@if($t->payment == null)
@@ -41,7 +41,7 @@
 											<center><i style="font-size: 24px" class="text-danger fas fa-eye-slash"></i></center>
 										@else
 										{{-- Button Trigger Modal --}}
-											<p><a href="#" data-toggle="modal" data-target="#paymentPhoto{{$t->id}}" class="text-success"><i style="font-size: 24px" class="fas fa-eye"></i></a></p>
+											<center><a href="#" data-toggle="modal" data-target="#paymentPhoto{{$t->id}}" class="text-success"><i style="font-size: 24px" class="fas fa-eye"></i></a></center>
 
 											<!-- Modal -->
 											<div class="modal fade" id="paymentPhoto{{$t->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -54,7 +54,7 @@
 															</button>
 														</div>
 														<div class="modal-body">
-															<img src="/avatars/{{$t->payment}}" alt="" width="400px" height="auto">
+															<center><img src="/avatars/{{$t->payment}}" alt="" class="mx-auto d-block" width="400px" height="auto" alt="Responsive image"></center>
 														</div>
 															<div class="modal-footer">
 															<button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i></button>
@@ -73,7 +73,7 @@
 									</td>
 									<td>
 										@if($t->confirmation == 0)
-											<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#confirmationModal{{$t->id}}">
+											<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmationModal{{$t->id}}">
 												<i class="fas fa-check"></i>
 											</button>
 
@@ -111,7 +111,7 @@
 												<div class="modal-dialog modal-dialog-centered" role="document">
 													<div class="modal-content">
 														<div class="modal-header">
-															<h5 class="modal-title" id="exampleModalLabel">Konfirmasi Pembayaran</h5>
+															<h5 class="modal-title" id="exampleModalLabel">Konfirmasi Pembatalan Pembayaran</h5>
 															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 																<span aria-hidden="true">&times;</span>
 															</button>

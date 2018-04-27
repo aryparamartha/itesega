@@ -26,6 +26,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['prefix'=> 'user'], function (){
 	Route::get('/logout', 'Auth\LoginController@logoutUser')->name('user.logout');
 	Route::get('/schedule', 'UserScheduleController@userIndex')->name('user.schedule');
+	Route::POST('/message', 'MessageController@storeUserMessage')->name('user.message');
 });
 
 
@@ -54,4 +55,6 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::PUT('/payment-confirm/{admin}', 'AdminController@paymentConfirm')->name('admin.payment-confirm');
 	Route::PUT('/payment-unconfirm/{admin}', 'AdminController@paymentUnconfirm')->name('admin.payment-unconfirm');
 	Route::GET('/admin-account-list', 'AdminController@adminIndex')->name('admin.account-list');
+
+	Route::resource('/message', 'MessageController');
 });

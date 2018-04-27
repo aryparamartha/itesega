@@ -21,7 +21,7 @@ class TeamController extends Controller {
     {
         $this->middleware('auth');
 	}
-	
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -103,7 +103,7 @@ class TeamController extends Controller {
                         ->withErrors($validator)
                         ->withInput();
         }
-		
+
 
 		$team = User::find(Auth::user()->id);
 		$team->name = $request->name;
@@ -125,6 +125,7 @@ class TeamController extends Controller {
         }
 
 		$team->save();
+		Session::flash('success', 'Profil tim berhasil diperbaharui');
 		return redirect('/team');
 	}
 
@@ -138,8 +139,8 @@ class TeamController extends Controller {
 	public function updatePayment(Request $request, $id)
     {
 		$validator = Validator::make($request->all(),[
-			'payment' => 'nullable', 
-		
+			'payment' => 'nullable',
+
 		]);
 		$team = User::find(Auth::user()->id);
 		if ($request->hasFile('payment')){
@@ -147,7 +148,7 @@ class TeamController extends Controller {
 				$oldFileName = $team->payment;
 				File::delete(public_path('/avatars/' . $oldFileName));
 			}
-			
+
 			$payment = $request->file('payment');
 			$fileName = time() . '.' . $payment->getClientOriginalExtension();
 			Image::make($payment)->save(public_path('/avatars/' . $fileName));

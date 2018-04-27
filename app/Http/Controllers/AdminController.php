@@ -76,7 +76,7 @@ class AdminController extends Controller {
 		$member->email = $request->email;
 		$member->password = Hash::make($request->password);
 		$member->save();
-
+		Session::flash('success', 'Admin berhasil ditambahkan');
 		return redirect('/admin/admin-account-list');
 	}
 
@@ -133,7 +133,7 @@ class AdminController extends Controller {
 		$admin->email = $request->email;
 		$admin->password = Hash::make($request->password);
 		$admin->save();
-
+		Session::flash('success', 'Admin berhasil diperbaharui');
 		return redirect('/admin/admin-account-list');
 	}
 
@@ -193,5 +193,6 @@ class AdminController extends Controller {
 	public function team() {
 		$team = User::all();
 		return view('admin.adminteam', compact('team'));
+		Session::flash('success', 'Admin berhasil dihapus');
 	}
 }

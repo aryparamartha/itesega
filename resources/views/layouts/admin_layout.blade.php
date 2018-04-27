@@ -16,6 +16,7 @@
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/datatables.min.css') }}">
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}" rel="stylesheet">
 		<link rel="stylesheet" href="{{asset('css/main.css')}}">
+		<link rel="stylesheet" href="{{asset("css/style.css")}}"
 
 		<!-- Font Awesome -->
 		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -64,7 +65,7 @@
             <li><a class="app-menu__item @yield('active2')" href="{{route('admin.account-list')}}"><i class="app-menu__icon fas fa-user-secret mr-2"></i><span class="app-menu__label"> Admin</span></a></li>
             <li><a class="app-menu__item @yield('active3')" href="{{route('admin.team')}}"><i class="app-menu__icon fas fa-users mr-2"></i><span class="app-menu__label"> Tim</span></a></li>
 			<li><a class="app-menu__item @yield('active4')" href="{{route('schedule.index')}}"><i class="app-menu__icon fas fa-calendar-alt mr-2"></i><span class="app-menu__label"> Jadwal</span></a></li>
-			<li><a class="app-menu__item @yield('active5')" href="#"><i class="app-menu__icon fa fa-chart-pie mr-2"></i><span class="app-menu__label"> Charts</span></a></li>
+			<li><a class="app-menu__item @yield('active5')" href="#"><i class="app-menu__icon fas fa-comments mr-2"></i><span class="app-menu__label"> Kirim Pesan</span></a></li>
 			<li><a class="app-menu__item @yield('active6')" href="#"><i class="app-menu__icon fa fa-edit mr-2"></i><span class="app-menu__label"> Forms</span></a></li>
 			<li><a class="app-menu__item @yield('active7')" href="#"><i class="app-menu__icon fa fa-th-list mr-2"></i><span class="app-menu__label">Tables</span></a></li>
 			<li><a class="app-menu__item @yield('active8')" href="#"><i class="app-menu__icon fas fa-file-alt mr-2"></i><span class="app-menu__label">Pages</span></a></li>
