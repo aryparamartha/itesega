@@ -57,4 +57,5 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::GET('/admin-account-list', 'AdminController@adminIndex')->name('admin.account-list');
 
 	Route::resource('/message', 'MessageController');
+	Route::GET('/message-out', 'MessageController@msgOut')->name('message.out');
 });

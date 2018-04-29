@@ -182,7 +182,7 @@
                         <form action="/user/message" method="post">
                             @csrf
                             <div class="form-group row">
-                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" placeholder="Nama" required autofocus>
+                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" placeholder="Nama" required>
 
                                 @if ($errors->has('name'))
                                     <span class="invalid-feedback">

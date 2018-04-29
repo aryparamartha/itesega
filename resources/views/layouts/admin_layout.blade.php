@@ -32,15 +32,26 @@
 				<button class="app-search__button"><i class="fa fa-search"></i></button>
 			</li>
 			<!--Notification Menu-->
-			<li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Show notifications"><i class="far fa-bell fa-lg"></i></a>
-				<ul class="app-notification dropdown-menu dropdown-menu-right">
-					<li class="app-notification__title">You have 4 new notifications.</li>
-					<div class="app-notification__content">
-
-					</div>
-					<li class="app-notification__footer"><a href="#">See all notifications.</a></li>
-				</ul>
-			</li>
+			@if(count($message))
+				<li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Show notifications"><i class="far fa-bell fa-lg"></i><span class="badge badge-warning">{{count($message)}}</span></a>
+					<ul class="app-notification dropdown-menu dropdown-menu-right">
+						<li class="app-notification__title">{{count($message)}} pesan belum dibaca</li>
+						<div class="app-notification__content">
+							@foreach($message as $m)
+								<li>
+									<a class="app-notification__item" href="javascript:;"><span class="app-notification__icon"><span class="fa-stack"><i class="fa fa-circle text-primary" style="font-size:28px"></i><i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></span>
+										<div>
+											<p class="app-notification__message">{{$m->name}}</p>
+											<p class="app-notification__meta">{{$m->created_at->diffForHumans()}}</p>
+										</div>
+									</a>
+								</li>
+							@endforeach
+						</div>
+						<li class="app-notification__footer"><a href="/admin/message">Lihat semua pesan</a></li>
+					</ul>
+				</li>
+			@endif
 			<!-- User Menu-->
 			<li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i class="fa fa-user fa-lg"></i></a>
 				<ul class="dropdown-menu settings-menu dropdown-menu-right">
@@ -65,8 +76,10 @@
             <li><a class="app-menu__item @yield('active2')" href="{{route('admin.account-list')}}"><i class="app-menu__icon fas fa-user-secret mr-2"></i><span class="app-menu__label"> Admin</span></a></li>
             <li><a class="app-menu__item @yield('active3')" href="{{route('admin.team')}}"><i class="app-menu__icon fas fa-users mr-2"></i><span class="app-menu__label"> Tim</span></a></li>
 			<li><a class="app-menu__item @yield('active4')" href="{{route('schedule.index')}}"><i class="app-menu__icon fas fa-calendar-alt mr-2"></i><span class="app-menu__label"> Jadwal</span></a></li>
-			<li><a class="app-menu__item @yield('active5')" href="#"><i class="app-menu__icon fas fa-comments mr-2"></i><span class="app-menu__label"> Kirim Pesan</span></a></li>
-			<li><a class="app-menu__item @yield('active6')" href="#"><i class="app-menu__icon fa fa-edit mr-2"></i><span class="app-menu__label"> Forms</span></a></li>
+			@if(count($message))
+				<li><a class="app-menu__item @yield('active5')" href="{{route('message.index')}}"><i class="app-menu__icon fas fa-envelope mr-2"></i><span class="app-menu__label"> Pesan Masuk<span class="badge badge-warning ml-2">{{count($message)}}</span></span></a></li>
+			@endif
+			<li><a class="app-menu__item @yield('active6')" href="/admin/message-out"><i class="app-menu__icon fas fa-envelope mr-2"></i><span class="app-menu__label"> Pesan Keluar</span></a></li>
 			<li><a class="app-menu__item @yield('active7')" href="#"><i class="app-menu__icon fa fa-th-list mr-2"></i><span class="app-menu__label">Tables</span></a></li>
 			<li><a class="app-menu__item @yield('active8')" href="#"><i class="app-menu__icon fas fa-file-alt mr-2"></i><span class="app-menu__label">Pages</span></a></li>
 		</ul>
@@ -156,12 +169,12 @@
 	<!-- Google analytics script-->
 	<script type="text/javascript">
 		if(document.location.hostname == 'pratikborsadiya.in') {
-				(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-				(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-				m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-				})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-				ga('create', 'UA-72504830-1', 'auto');
-				ga('send', 'pageview');
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+			ga('create', 'UA-72504830-1', 'auto');
+			ga('send', 'pageview');
 		}
 	</script>
 </body>

@@ -6,6 +6,7 @@ use App\Admin;
 use App\schedule;
 use App\User;
 use App\Member;
+use App\UserMessage;
 use Validator;
 use Session;
 use Hash;
@@ -28,12 +29,13 @@ class AdminController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
+		$message = UserMessage::where('view', 0)->get();
 		$team = User::all();
 		$teams = DB::table('users')->count();
 		$team_paid = DB::table('users')->whereNotNull('payment')->get()->count();
 		$team_notpaid = DB::table('users')->whereNull('payment')->get()->count();
 		$team_unconfirmed = DB::table('users')->where('payment', '=', 0)->get()->count();
-		return view('admin.dashboardadmin', compact('team', 'teams', 'team_paid', 'team_notpaid', 'team_unconfirmed'));
+		return view('admin.dashboardadmin', compact('team', 'teams', 'team_paid', 'team_notpaid', 'team_unconfirmed', 'message'));
 	}
 
 	/**
@@ -182,7 +184,8 @@ class AdminController extends Controller {
 	 */
 	public function adminIndex() {
 		$admin = Admin::all();
-		return view('admin.adminaccount', compact('admin'));
+		$message = UserMessage::where('view', 0)->get();
+		return view('admin.adminaccount', compact('admin', 'message'));
 	}
 
 	/**
@@ -192,7 +195,8 @@ class AdminController extends Controller {
 	 */
 	public function team() {
 		$team = User::all();
-		return view('admin.adminteam', compact('team'));
+		$message = UserMessage::where('view', 0)->get();
+		return view('admin.adminteam', compact('team', 'message'));
 		Session::flash('success', 'Admin berhasil dihapus');
 	}
 }

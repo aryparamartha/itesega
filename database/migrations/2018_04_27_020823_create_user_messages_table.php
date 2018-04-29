@@ -18,7 +18,7 @@ class CreateUserMessagesTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('subject');
-            $table->text('message');
+            $table->text('message')->nullable();
             $table->boolean('view')->default(0);
             $table->timestamps();
         });

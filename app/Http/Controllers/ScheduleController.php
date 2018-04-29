@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Schedule;
 use App\User;
+use App\UserMessage;
 use DB;
 use Validator;
 use Session;
@@ -27,6 +28,7 @@ class ScheduleController extends Controller {
 	 */
 	public function index() {
 		$team = User::all();
+		$message = UserMessage::where('view', 0)->get();
 		$location = MatchLocation::all();
 		$schedule = DB::table('schedules')->join('users as team1', 'team1.id', '=', 'schedules.teamid1')
 			->join('users as team2', 'team2.id', '=', 'schedules.teamid2')
@@ -38,7 +40,7 @@ class ScheduleController extends Controller {
 		// join users as team1 on team1.id = schedules.teamid1
 		// join users as team2 on team2.id = schedules.teamid2
 
-		return view('schedule.schedule', compact('schedule', 'team', 'location'));
+		return view('schedule.schedule', compact('schedule', 'team', 'location', 'message'));
 	}
 
 	/**

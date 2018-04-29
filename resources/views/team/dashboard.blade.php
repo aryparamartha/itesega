@@ -315,7 +315,6 @@
 					</form>
 				</div>
 			</div>
-
 			<div class="table-responsive">
 				<table id="datatables" class="table">
 					<thead>

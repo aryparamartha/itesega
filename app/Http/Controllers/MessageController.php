@@ -5,11 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Message;
 use App\UserMessage;
+use App\AdminMessage;
 use Session;
 use Validator;
 
 class MessageController extends Controller
 {
+    /**
+	 * Create a new controller instance.
+	 *
+	 * @return void
+	 */
+	public function __construct() {
+		$this->middleware('auth:admin');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +27,22 @@ class MessageController extends Controller
      */
     public function index()
     {
-        //
+        $message = UserMessage::where('view', '=', 0)->get();
+        $readMessage = UserMessage::where('view', '=', 1)->get();
+        $allMessage = UserMessage::orderBy('id', 'desc')->get();
+        return view('messages.messagein', compact('readMessage', 'message', 'allMessage'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function msgOut()
+    {
+        $message = UserMessage::where('view', '=', 0)->get();
+        $adminMessage = AdminMessage::where('view', 0)->get();
+        return view('messages.messageout', compact('message', 'adminMessage'));
     }
 
     /**
@@ -56,7 +81,7 @@ class MessageController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
-        $message = new Message;
+        $message = new UserMessage;
         $message->name = $request->name;
         $message->email = $request->email;
         $message->subject = $request->subject;
@@ -74,7 +99,12 @@ class MessageController extends Controller
      */
     public function show($id)
     {
-        //
+        $currentMessage = UserMessage::find($id);
+        $message = UserMessage::where('view', '=', 0)->get();
+        $currentMessage->view = 1;
+        $currentMessage->save();
+        return view('messages.showmessage', compact('message', 'currentMessage'));
+
     }
 
     /**
@@ -97,7 +127,10 @@ class MessageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $message = UserMessage::find($id);
+        $message->view = 1;
+        $message->save();
+        return redirect('/admin/message');
     }
 
     /**
