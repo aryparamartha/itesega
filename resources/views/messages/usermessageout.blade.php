@@ -1,11 +1,11 @@
-@extends('layouts.admin_layout')
+@extends('layouts.dashboard_layout')
 
-@section('active6')
+@section('active4')
 	active
 @endsection
 
 @section('pagetitle')
-	<b><i class="fas fa-comments"></i> Pesan Keluar</b>
+	<b><i class="fas fa-envelope"></i> Pesan Keluar</b>
 @endsection
 
 @section('content')
@@ -121,8 +121,8 @@
                         <th>Waktu</th>
                     </thead>
                     <tbody>
-                        @if(count($adminMessage))
-                            @foreach($adminMessage as $m)
+                        @if(count($userMessage))
+                            @foreach($userMessage as $m)
                                 <tr>
                                     <td><center>{{$loop->iteration}}</center></td>
                                     <td><center>{{$m->name}}</center></td>
@@ -130,7 +130,7 @@
                                     <td><center>{{$m->subject}}</center></td>
                                     <td>
                                         <center>
-                                            <a href="/admin/message-out/{{$m->id}}"><i style="font-size: 24px; color:#343a40" class="fas fa-eye"></i></a>
+                                            <a href="/user/message/{{$m->id}}"><i style="font-size: 24px; color:#343a40" class="fas fa-eye"></i></a>
                                         </center>
                                     </td>
                                     <td><center>{{$m->created_at->diffForHumans()}}</center></td>

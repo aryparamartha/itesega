@@ -33,15 +33,35 @@
 				<button class="app-search__button"><i class="fa fa-search"></i></button>
 			</li>
 			<!--Notification Menu-->
-			<li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Show notifications"><i class="far fa-bell fa-lg"></i></a>
-				<ul class="app-notification dropdown-menu dropdown-menu-right">
-					<li class="app-notification__title">You have 4 new notifications.</li>
-					<div class="app-notification__content">
+			@if(count($message))
+				<li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Show notifications"><i class="far fa-bell fa-lg"></i><span class="badge badge-warning">{{count($message)}}</span></a>
+					<ul class="app-notification dropdown-menu dropdown-menu-right">
+						<li class="app-notification__title">{{count($message)}} pesan belum dibaca</li>
+						<div class="app-notification__content">
+							@foreach($message as $m)
+								<li>
+									<a class="app-notification__item" href="javascript:;"><span class="app-notification__icon"><span class="fa-stack"><i class="fa fa-circle text-primary" style="font-size:28px"></i><i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></span>
+										<div>
 
-					</div>
-					<li class="app-notification__footer"><a href="#">See all notifications.</a></li>
-				</ul>
-			</li>
+										</div>
+									</a>
+								</li>
+							@endforeach
+						</div>
+						<li class="app-notification__footer"><a href="#">Lihat semua pesan</a></li>
+					</ul>
+				</li>
+			@else
+				<li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Show notifications"><i class="far fa-bell fa-lg"></i></a>
+					<ul class="app-notification dropdown-menu dropdown-menu-right">
+						<li class="app-notification__title">Tidak ada pesan baru</li>
+						<div class="app-notification__content">
+
+						</div>
+						<li class="app-notification__footer"><a href="#">Lihat semua pesan masuk masuk</a></li>
+					</ul>
+				</li>
+			@endif
 			<!-- User Menu-->
 			<li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i class="fa fa-user fa-lg"></i></a>
 				<ul class="dropdown-menu settings-menu dropdown-menu-right">
@@ -64,8 +84,12 @@
 		<ul class="app-menu">
 			<li><a class="app-menu__item @yield('active1')" href="{{route('team.index')}}"><i class="app-menu__icon fas fa-tachometer-alt mr-2"></i><span class="app-menu__label"> Dashboard</span></a></li>
 			<li><a class="app-menu__item @yield('active2')" href="{{route('user.schedule')}}"><i class="app-menu__icon fas fa-calendar-alt mr-2"></i><span class="app-menu__label"> Jadwal</span></a></li>
-			<li><a class="app-menu__item @yield('active3')" href="#"><i class="app-menu__icon fa fa-chart-pie mr-2"></i><span class="app-menu__label"> Charts</span></a></li>
-			<li><a class="app-menu__item @yield('active4')" href="#"><i class="app-menu__icon fa fa-edit mr-2"></i><span class="app-menu__label"> Forms</span></a></li>
+			@if(count($message))
+				<li><a class="app-menu__item @yield('active3')" href="/user/message"><i class="app-menu__icon fas fa-envelope mr-2"></i><span class="app-menu__label"> Pesan Masuk<span class="badge badge-warning ml-2">{{count($message)}}</span></span></a></li>
+			@else
+				<li><a class="app-menu__item @yield('active3')" href="/user/message"><i class="app-menu__icon fas fa-envelope mr-2"></i><span class="app-menu__label"> Pesan Masuk</span></a></li>
+			@endif
+			<li><a class="app-menu__item @yield('active4')" href="{{route('user.message-out')}}"><i class="app-menu__icon fas fa-envelope mr-2 mr-2"></i><span class="app-menu__label"> Pesan Keluar</span></a></li>
 			<li><a class="app-menu__item @yield('active5')" href="#"><i class="app-menu__icon fa fa-th-list mr-2"></i><span class="app-menu__label">Tables</span></a></li>
 			<li><a class="app-menu__item @yield('active6')" href="#"><i class="app-menu__icon fas fa-file-alt mr-2"></i><span class="app-menu__label">Pages</span></a></li>
 		</ul>

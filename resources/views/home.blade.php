@@ -179,7 +179,7 @@
 
                 <div class="col-lg-5 col-md-8">
                     <div class="form">
-                        <form action="/user/message" method="post">
+                        <form action="/guest/message" method="post">
                             @csrf
                             <div class="form-group row">
                                 <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" placeholder="Nama" required>

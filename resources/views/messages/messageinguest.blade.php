@@ -14,7 +14,7 @@
             <center>
                 <div class="btn-group special mb-4" role="group" aria-label="...">
                     <a href="/admin/message" class="btn btn-primary">Pesan dari Tim</a>
-                    <a href="/admin/message-guest" class="btn btn-primary">Pesan dari Guest</a>
+                    <a href="/admin/mesage/guest" class="btn btn-primary">Pesan dari Guest</a>
                 </div>
             </center>
             @if ($errors->any())
@@ -65,7 +65,7 @@
                                     <td><center>{{$m->email}}</center></td>
                                     <td><center>{{$m->subject}}</center></td>
                                     <td><center>
-                                        <a href="/admin/message/{{$m->id}}"><i style="font-size: 24px; color:#343a40" class="fas fa-eye"></i></a></center>
+                                        <a href="/admin/message-guest/{{$m->id}}"><i style="font-size: 24px; color:#343a40" class="fas fa-eye"></i></a></center>
                                     </td>
                                     <td><center>{{$m->created_at->diffForHumans()}}</center></td>
                                     <td>
@@ -86,7 +86,7 @@
 													</div>
 													<div class="modal-footer">
 														<button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i></button>
-														<form class="form group" action="/admin/message/{{$m->id}}" method="POST">
+														<form class="form group" action="/admin/message-guest/{{$m->id}}" method="POST">
 															@csrf
 															{{method_field('DELETE')}}
 															<button style="border-radius: 0px" type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>

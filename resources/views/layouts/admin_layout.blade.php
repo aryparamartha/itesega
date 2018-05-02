@@ -51,6 +51,16 @@
 						<li class="app-notification__footer"><a href="/admin/message">Lihat semua pesan</a></li>
 					</ul>
 				</li>
+			@else
+				<li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Show notifications"><i class="far fa-bell fa-lg"></i></span></a>
+					<ul class="app-notification dropdown-menu dropdown-menu-right">
+						<li class="app-notification__title">Tidak ada pesan baru</li>
+						<div class="app-notification__content">
+
+						</div>
+						<li class="app-notification__footer"><a href="/admin/message">Lihat semua pesan</a></li>
+					</ul>
+				</li>
 			@endif
 			<!-- User Menu-->
 			<li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i class="fa fa-user fa-lg"></i></a>
@@ -78,6 +88,8 @@
 			<li><a class="app-menu__item @yield('active4')" href="{{route('schedule.index')}}"><i class="app-menu__icon fas fa-calendar-alt mr-2"></i><span class="app-menu__label"> Jadwal</span></a></li>
 			@if(count($message))
 				<li><a class="app-menu__item @yield('active5')" href="{{route('message.index')}}"><i class="app-menu__icon fas fa-envelope mr-2"></i><span class="app-menu__label"> Pesan Masuk<span class="badge badge-warning ml-2">{{count($message)}}</span></span></a></li>
+			@else
+			<li><a class="app-menu__item @yield('active5')" href="{{route('message.index')}}"><i class="app-menu__icon fas fa-envelope mr-2"></i><span class="app-menu__label"> Pesan Masuk</span></a></li>
 			@endif
 			<li><a class="app-menu__item @yield('active6')" href="/admin/message-out"><i class="app-menu__icon fas fa-envelope mr-2"></i><span class="app-menu__label"> Pesan Keluar</span></a></li>
 			<li><a class="app-menu__item @yield('active7')" href="#"><i class="app-menu__icon fa fa-th-list mr-2"></i><span class="app-menu__label">Tables</span></a></li>

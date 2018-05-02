@@ -10,6 +10,7 @@ use File;
 use Validator;
 use Session;
 use Illuminate\Http\Request;
+use App\AdminMessage;
 
 class TeamController extends Controller {
 	/**
@@ -28,8 +29,9 @@ class TeamController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
+		$message = AdminMessage::where('view', '=', 0)->get();
 		$member = Member::where('teamid', Auth::user()->id)->get();
-		return view('team.dashboard', compact('member'));
+		return view('team.dashboard', compact('member', 'message'));
 	}
 
 	/**
