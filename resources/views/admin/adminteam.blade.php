@@ -4,6 +4,10 @@
 	active
 @endsection
 
+@section('breadcrumb')
+	Daftar Tim
+@endsection
+
 @section('pagetitle')
 	<b><i class="fas fa-users"></i> Daftar Tim</b>
 @endsection

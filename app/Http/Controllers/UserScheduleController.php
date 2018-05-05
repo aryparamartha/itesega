@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use DB;
 use App\MatchLocation;
-use App\AdminMessage;
+use App\AdminMessageTemporary;
 
 class UserScheduleController extends Controller {
 	/**
@@ -22,7 +22,7 @@ class UserScheduleController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function userIndex() {
-		$message = AdminMessage::where('view', '=', 0)->get();
+		$message = AdminMessageTemporary::where('view', '=', 0)->get();
 		$location = MatchLocation::all();
 		$schedule = DB::table('schedules')->join('users as team1', 'team1.id', '=', 'schedules.teamid1')
 			->join('users as team2', 'team2.id', '=', 'schedules.teamid2')

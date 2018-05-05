@@ -12,10 +12,17 @@
     <div class="card mb-4 elevation">
         <div class="card-body">
             <center>
-                <div class="btn-group special mb-4" role="group" aria-label="...">
-                    <a href="/admin/message" class="btn btn-primary">Pesan dari Tim</a>
-                    <a href="/admin/message-guest" class="btn btn-primary">Pesan dari Guest</a>
-                </div>
+                @if(count($message) || count($guestMessage))
+                    <div class="btn-group special mb-4" role="group" aria-label="...">
+                        <a href="/admin/message" class="btn btn-primary-selected">Pesan dari Tim<span class="badge badge-warning ml-2">{{count($message)}}</span></a>
+                        <a href="/admin/message-guest" class="btn btn-primary">Pesan dari Guest<span class="badge badge-warning ml-2">{{count($guestMessage)}}</span></a>
+                    </div>
+                @else
+                    <div class="btn-group special mb-4" role="group" aria-label="...">
+                        <a href="/admin/message" class="btn btn-primary-selected">Pesan dari Tim</a>
+                        <a href="/admin/message-guest" class="btn btn-primary">Pesan dari Guest</a>
+                    </div>
+                @endif
             </center>
             @if ($errors->any())
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -41,11 +48,75 @@
                     </button>
                 </div>
             @endif
+            <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#create-team">
+                <i class="fas fa-plus"></i>
+            </button>
+            <!-- Modal -->
+			<div class="modal fade" id="create-team" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-plus"></i> Buat Pesan Baru</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form action="{{route('message.store')}}" method="POST">
+                            @csrf
+                            <div class="modal-body">
+                                <div class="form-group row">
+                                    <label for="name" class="col-md-4 col-form-label text-md-left">{{ __('Ke') }}</label>
+
+                                    <div class="col-md-8">
+                                        <select id="receiver" class="custom-select{{ $errors->has('receiver') ? ' is-invalid' : '' }}" name="receiver" required autofocus>
+                                            @foreach($team as $t)
+                                                <option value="{{$t->id}}">{{$t->teamname}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="subject" class="col-md-4 col-form-label text-md-left">{{ __('Subjek') }}</label>
+
+                                    <div class="col-md-8">
+                                        <input id="subject" type="text" class="form-control{{ $errors->has('subject') ? ' is-invalid' : '' }}" name="subject" required>
+
+                                        @if ($errors->has('subject'))
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $errors->first('subject') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="message" class="col-md-4 col-form-label text-md-left">{{ __('Pesan') }}</label>
+
+                                    <div class="col-md-8">
+                                    <textarea name="message" id="message" class="form-control{{ $errors->has('message') ? ' is-invalid' : '' }} mb-2" required></textarea>
+
+                                        @if ($errors->has('message'))
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $errors->first('message') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i></button>
+                                <button type="submit" name="submit" value="Simpan" class="btn btn-primary"><i class="far fa-save"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <div class="table-responsive" id="teamMsg">
                 <table id="datatables" class="table">
                     <thead>
                         <th>#</th>
-                        <th>Nama</th>
+                        <th>Pengirim</th>
                         <th>Email</th>
                         <th>Subjek</th>
                         <th>Pesan</th>
@@ -61,13 +132,13 @@
                                     @else
                                         <td>{{$loop->iteration}}</td>
                                     @endif
-                                    <td><center>{{$m->name}}</center></td>
+                                    <td><center>{{$m->teamname}}</center></td>
                                     <td><center>{{$m->email}}</center></td>
                                     <td><center>{{$m->subject}}</center></td>
                                     <td><center>
                                         <a href="/admin/message/{{$m->id}}"><i style="font-size: 24px; color:#343a40" class="fas fa-eye"></i></a></center>
                                     </td>
-                                    <td><center>{{$m->created_at->diffForHumans()}}</center></td>
+                                    <td><center>{{date('d F Y', strtotime($m->created_at))}}</center></td>
                                     <td>
                                         {{-- Delete --}}
 										<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{$m->id}}"><i class="fas fa-trash-alt"></i></button>
@@ -82,7 +153,7 @@
 														</button>
 													</div>
 													<div class="modal-body">
-														<center><p>Apakah Anda yakin menghapus pesan dari <b>{{$m->name}}</b></p></center>
+														<center><p>Apakah Anda yakin menghapus pesan dari <b>{{$m->teamname}}</b></p></center>
 													</div>
 													<div class="modal-footer">
 														<button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i></button>
@@ -100,7 +171,7 @@
                             @endforeach
                         @else
                             <tr>
-                                <td colspan="6"><center>Tidak ada pesan</center></td>
+                                <td colspan="7"><center>Tidak ada pesan</center></td>
                             </tr>
                         @endif
                     </tbody>

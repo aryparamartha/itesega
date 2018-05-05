@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGuestMessagesTable extends Migration
+class CreateUserMessageTemporariesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateGuestMessagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('guest_messages', function (Blueprint $table) {
+        Schema::create('user_message_temporaries', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('user_id');
-            $table->string('email');
+            $table->foreign('user_id')->reference('id')->on('users')->onDelete('cascade');
             $table->string('subject');
             $table->text('message')->nullable();
             $table->boolean('view')->default(0);
@@ -31,6 +30,6 @@ class CreateGuestMessagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('guest_messages');
+        Schema::dropIfExists('user_message_temporaries');
     }
 }

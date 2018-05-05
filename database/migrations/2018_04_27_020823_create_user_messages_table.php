@@ -15,8 +15,7 @@ class CreateUserMessagesTable extends Migration
     {
         Schema::create('user_messages', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('email');
+            $table->foreign('user_id')->reference('id')->on('users')->onDelete('cascade');
             $table->string('subject');
             $table->text('message')->nullable();
             $table->boolean('view')->default(0);

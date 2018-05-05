@@ -6,12 +6,13 @@ use App\Admin;
 use App\schedule;
 use App\User;
 use App\Member;
-use App\UserMessage;
+use App\UserMessageTemporary;
 use Validator;
 use Session;
 use Hash;
 use DB;
 use Illuminate\Http\Request;
+use App\GuestMessage;
 
 class AdminController extends Controller {
 	/**
@@ -29,13 +30,14 @@ class AdminController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
-		$message = UserMessage::where('view', 0)->get();
+		$guestMessage = GuestMessage::where('view', 0)->get();
+		$message = UserMessageTemporary::where('view', 0)->get();
 		$team = User::all();
 		$teams = DB::table('users')->count();
 		$team_paid = DB::table('users')->whereNotNull('payment')->get()->count();
 		$team_notpaid = DB::table('users')->whereNull('payment')->get()->count();
 		$team_unconfirmed = DB::table('users')->where('payment', '=', 0)->get()->count();
-		return view('admin.dashboardadmin', compact('team', 'teams', 'team_paid', 'team_notpaid', 'team_unconfirmed', 'message'));
+		return view('admin.dashboardadmin', compact('team', 'teams', 'team_paid', 'team_notpaid', 'team_unconfirmed', 'message', 'guestMessage'));
 	}
 
 	/**
@@ -183,9 +185,10 @@ class AdminController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function adminIndex() {
+		$guestMessage = GuestMessage::where('view', 0)->get();
 		$admin = Admin::all();
-		$message = UserMessage::where('view', 0)->get();
-		return view('admin.adminaccount', compact('admin', 'message'));
+		$message = UserMessageTemporary::where('view', 0)->get();
+		return view('admin.adminaccount', compact('admin', 'message', 'guestMessage'));
 	}
 
 	/**
@@ -194,9 +197,9 @@ class AdminController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function team() {
+		$guestMessage = GuestMessage::where('view', 0)->get();
 		$team = User::all();
-		$message = UserMessage::where('view', 0)->get();
-		return view('admin.adminteam', compact('team', 'message'));
-		Session::flash('success', 'Admin berhasil dihapus');
+		$message = UserMessageTemporary::where('view', 0)->get();
+		return view('admin.adminteam', compact('team', 'message', 'guestMessage'));
 	}
 }

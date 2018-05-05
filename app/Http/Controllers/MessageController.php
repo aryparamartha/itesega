@@ -7,8 +7,12 @@ use App\Message;
 use App\UserMessage;
 use App\AdminMessage;
 use App\GuestMessage;
+use App\AdminMessageTemporary;
+use App\UserMessageTemporary;
+use App\User;
 use Session;
 use Validator;
+use DB;
 
 class MessageController extends Controller
 {
@@ -28,9 +32,16 @@ class MessageController extends Controller
      */
     public function index()
     {
-        $message = UserMessage::where('view', '=', 0)->get();
-        $allMessage = UserMessage::orderBy('id', 'desc')->get();
-        return view('messages.messagein', compact('readMessage', 'message', 'allMessage'));
+        $team = User::all();
+        $guestMessage = GuestMessage::where('view', 0)->get();
+        $message = UserMessageTemporary::where('view', '=', 0)->get();
+        // $allMessage = UserMessageTemporary::orderBy('id', 'desc')->get();
+        $allMessage = DB::table('user_message_temporaries')
+                            ->join('users', 'user_message_temporaries.user_id', '=', 'users.id')
+                            ->select('user_message_temporaries.*', 'users.teamname', 'users.email')
+                            ->orderBy('id', 'desc')
+                            ->get();
+        return view('messages.messagein', compact('readMessage', 'message', 'allMessage', 'guestMessage', 'team'));
     }
 
     /**
@@ -40,9 +51,11 @@ class MessageController extends Controller
      */
     public function msgGuestIndex()
     {
-        $message = UserMessage::where('view', '=', 0)->get();
+        $team = User::all();
+        $guestMessage = GuestMessage::where('view', 0)->get();
+        $message = UserMessageTemporary::where('view', '=', 0)->get();
         $allMessage = GuestMessage::orderBy('id', 'desc')->get();
-        return view('messages.messageinguest', compact('message', 'allMessage'));
+        return view('messages.guestmessagein', compact('message', 'allMessage', 'guestMessage', 'team'));
     }
 
     /**
@@ -52,9 +65,15 @@ class MessageController extends Controller
      */
     public function msgOut()
     {
-        $message = UserMessage::where('view', '=', 0)->get();
-        $adminMessage = AdminMessage::orderBy('id', 'desc')->get();
-        return view('messages.messageout', compact('message', 'adminMessage'));
+        $team = User::all();
+        $guestMessage = GuestMessage::where('view', 0)->get();
+        $message = UserMessageTemporary::where('view', '=', 0)->get();
+        // $adminMessage = AdminMessage::orderBy('id', 'desc')->get();
+        $adminMessage = DB::table('admin_messages')
+                            ->join('users', 'admin_messages.receiver', '=', 'users.id')
+                            ->select('admin_messages.*', 'users.teamname')
+                            ->orderBy('id', 'desc')->get();
+        return view('messages.messageout', compact('message', 'adminMessage', 'guestMessage', 'team'));
     }
 
     /**
@@ -64,11 +83,12 @@ class MessageController extends Controller
      */
     public function msgGuestShow($id)
     {
+        $guestMessage = GuestMessage::where('view', 0)->get();
         $currentMessage = GuestMessage::find($id);
-        $message = UserMessage::where('view', '=', 0)->get();
+        $message = UserMessageTemporary::where('view', '=', 0)->get();
         $currentMessage->view = 1;
         $currentMessage->save();
-        return view('messages.showmessageinguest', compact('message', 'currentMessage'));
+        return view('messages.guestshowmessagein', compact('message', 'currentMessage', 'guestMessage'));
     }
 
     /**
@@ -90,31 +110,118 @@ class MessageController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
+            'receiver' => 'required',
             'subject' => 'required|string|max:255',
             'message' => 'required|string',
         ],[
             'name.required' => 'Kolom nama harus diisi',
-            'name.max' => 'Nama tidak boleh lebih dari 255 karakter',
-            'email' => 'Email tidak boleh lebih dari 255 karakter',
+            'subject.required' => 'Kolom subjek harus diisi',
             'message.required' => 'Pesan harus diisi',
         ]);
 
         if ($validator->fails()) {
             Session::flash('error', 'Pesan gagal dikirim');
-            return redirect('/')
+            return redirect('/admin/message')
                         ->withErrors($validator)
                         ->withInput();
         }
-        $message = new UserMessage;
-        $message->name = $request->name;
-        $message->email = $request->email;
+
+        $message = new AdminMessage;
+        $message->receiver = $request->receiver;
         $message->subject = $request->subject;
         $message->message = $request->message;
         $message->save();
+
+        $message_temp = new AdminMessageTemporary;
+        $message_temp->receiver = $request->receiver;
+        $message_temp->subject = $request->subject;
+        $message_temp->message = $request->message;
+        $message_temp->save();
+
         Session::flash('success', 'Pesan berhasil dikirim');
-        return redirect('/');
+        return redirect('/admin/message');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function sendMsgInGuestView(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'receiver' => 'required',
+            'subject' => 'required|string|max:255',
+            'message' => 'required|string',
+        ],[
+            'name.required' => 'Kolom nama harus diisi',
+            'subject.required' => 'Kolom subjek harus diisi',
+            'message.required' => 'Pesan harus diisi',
+        ]);
+
+        if ($validator->fails()) {
+            Session::flash('error', 'Pesan gagal dikirim');
+            return redirect('/admin/message-guest')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $message = new AdminMessage;
+        $message->receiver = $request->receiver;
+        $message->subject = $request->subject;
+        $message->message = $request->message;
+        $message->save();
+
+        $message_temp = new AdminMessageTemporary;
+        $message_temp->receiver = $request->receiver;
+        $message_temp->subject = $request->subject;
+        $message_temp->message = $request->message;
+        $message_temp->save();
+
+        Session::flash('success', 'Pesan berhasil dikirim');
+        return redirect('/admin/message-guest');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function sendMsgInMsgOutView(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'receiver' => 'required',
+            'subject' => 'required|string|max:255',
+            'message' => 'required|string',
+        ],[
+            'name.required' => 'Kolom nama harus diisi',
+            'subject.required' => 'Kolom subjek harus diisi',
+            'message.required' => 'Pesan harus diisi',
+        ]);
+
+        if ($validator->fails()) {
+            Session::flash('error', 'Pesan gagal dikirim');
+            return redirect('/admin/message-guest')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $message = new AdminMessage;
+        $message->receiver = $request->receiver;
+        $message->subject = $request->subject;
+        $message->message = $request->message;
+        $message->save();
+
+        $message_temp = new AdminMessageTemporary;
+        $message_temp->receiver = $request->receiver;
+        $message_temp->subject = $request->subject;
+        $message_temp->message = $request->message;
+        $message_temp->save();
+
+        Session::flash('success', 'Pesan berhasil dikirim');
+        return redirect('/admin/message');
     }
 
     /**
@@ -125,11 +232,12 @@ class MessageController extends Controller
      */
     public function show($id)
     {
-        $currentMessage = UserMessage::find($id);
-        $message = UserMessage::where('view', '=', 0)->get();
+        $guestMessage = GuestMessage::where('view', 0)->get();
+        $currentMessage = UserMessageTemporary::find($id);
+        $message = UserMessageTemporary::where('view', '=', 0)->get();
         $currentMessage->view = 1;
         $currentMessage->save();
-        return view('messages.showmessagein', compact('message', 'currentMessage'));
+        return view('messages.showmessagein', compact('message', 'currentMessage', 'guestMessage'));
 
     }
 
@@ -141,9 +249,10 @@ class MessageController extends Controller
      */
 public function viewMsgOut($id)
     {
+        $guestMessage = GuestMessage::where('view', 0)->get();
         $currentMessage = AdminMessage::find($id);
-        $message = UserMessage::where('view', '=', 0)->get();
-        return view('messages.showmessagein', compact('message', 'currentMessage'));
+        $message = UserMessageTemporary::where('view', '=', 0)->get();
+        return view('messages.showmessageout', compact('message', 'currentMessage', 'guestMessage'));
 
     }
 
@@ -167,10 +276,7 @@ public function viewMsgOut($id)
      */
     public function update(Request $request, $id)
     {
-        $message = UserMessage::find($id);
-        $message->view = 1;
-        $message->save();
-        return redirect('/admin/message');
+        //
     }
 
     /**
@@ -181,7 +287,7 @@ public function viewMsgOut($id)
      */
     public function destroy($id)
     {
-        $message = UserMessage::find($id);
+        $message = UserMessageTemporary::find($id);
         if ($message) {
             $message->delete();
         }

@@ -23,10 +23,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // route untuk user
 Route::group(['prefix'=> 'user'], function (){
-	Route::get('/logout', 'Auth\LoginController@logoutUser')->name('user.logout');
-	Route::get('/schedule', 'UserScheduleController@userIndex')->name('user.schedule');
+	Route::GET('/logout', 'Auth\LoginController@logoutUser')->name('user.logout');
+	Route::GET('/schedule', 'UserScheduleController@userIndex')->name('user.schedule');
 	Route::resource('message', 'UserMessageController');
-	Route::get('/message-out', 'UserMessageController@msgOut')->name('user.message-out');
+	Route::GET('/message-out', 'UserMessageController@sentMsg')->name('user.message-out');
+	Route::GET('/message-out/{id}', 'UserMessageController@seeMsg')->name('user.message-out-show');
+	Route::POST('/message-out', 'UserMessageController@msgToAdmin')->name('user.message-store');
 });
 
 // route untuk mengirim pesan dari guest yang dibuat di halaman home
@@ -101,4 +103,10 @@ Route::group(['prefix' => 'admin'], function () {
 
 	// route untuk menghapus pesan dari guest oleh admin
 	Route::DELETE('/message-guest/{id}', 'MessageController@deleteGuestMsg');
+
+	// route untuk mengirim pesan dari view pesan guest
+	Route::POST('/message-guest', 'MessageController@sendMsgInGuestView')->name('message.send-message-inGuest');
+
+	// route untuk mengirim pesan dari view pesa keluar
+	Route::POST('/message-out', 'MessageController@sendMsgInMsgOutView');
 });

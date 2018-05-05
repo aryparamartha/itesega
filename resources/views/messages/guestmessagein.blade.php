@@ -1,6 +1,6 @@
-@extends('layouts.dashboard_layout')
+@extends('layouts.admin_layout')
 
-@section('active3')
+@section('active5')
 	active
 @endsection
 
@@ -11,6 +11,19 @@
 @section('content')
     <div class="card mb-4 elevation">
         <div class="card-body">
+            <center>
+                @if(count($message) || count($guestMessage))
+                    <div class="btn-group special mb-4" role="group" aria-label="...">
+                        <a href="/admin/message" class="btn btn-primary">Pesan dari Tim<span class="badge badge-warning ml-2">{{count($message)}}</span></a>
+                        <a href="/admin/message-guest" class="btn btn-primary-selected">Pesan dari Guest<span class="badge badge-warning ml-2">{{count($guestMessage)}}</span></a>
+                    </div>
+                @else
+                    <div class="btn-group special mb-4" role="group" aria-label="...">
+                        <a href="/admin/message" class="btn btn-primary">Pesan dari Tim</a>
+                        <a href="/admin/message-guest" class="btn btn-primary-selected">Pesan dari Guest</a>
+                    </div>
+                @endif
+            </center>
             @if ($errors->any())
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     @if(Session::has('error'))
@@ -48,20 +61,18 @@
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form action="/user/message" method="POST">
+                        <form action="/admin/message-guest" method="POST">
                             @csrf
                             <div class="modal-body">
                                 <div class="form-group row">
-                                    <label for="name" class="col-md-4 col-form-label text-md-left">{{ __('Pengirim') }}</label>
+                                    <label for="name" class="col-md-4 col-form-label text-md-left">{{ __('Ke') }}</label>
 
                                     <div class="col-md-8">
-                                        <input id="sender" type="text" class="form-control" name="sender" value="{{Auth::user()->teamname}}" disabled>
-
-                                        @if ($errors->has('sender'))
-                                            <span class="invalid-feedback">
-                                                <strong>{{ $errors->first('sender') }}</strong>
-                                            </span>
-                                        @endif
+                                        <select id="receiver" class="custom-select{{ $errors->has('receiver') ? ' is-invalid' : '' }}" name="receiver" required autofocus>
+                                            @foreach($team as $t)
+                                                <option value="{{$t->id}}">{{$t->teamname}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
 
@@ -101,13 +112,16 @@
                     </form>
                 </div>
             </div>
-            <div class="table-responsive">
+            <div class="table-responsive" id="teamMsg">
                 <table id="datatables" class="table">
                     <thead>
                         <th>#</th>
+                        <th>Pengirim</th>
+                        <th>Email</th>
                         <th>Subjek</th>
                         <th>Pesan</th>
                         <th>Waktu</th>
+                        <th>Aksi</th>
                     </thead>
                     <tbody>
                         @if(count($allMessage))
@@ -118,18 +132,46 @@
                                     @else
                                         <td>{{$loop->iteration}}</td>
                                     @endif
+                                    <td><center>{{$m->name}}</center></td>
+                                    <td><center>{{$m->email}}</center></td>
                                     <td><center>{{$m->subject}}</center></td>
-                                    <td>
-                                        <center>
-                                            <a href="/user/message/{{$m->id}}"><i style="font-size: 24px; color:#343a40" class="fas fa-eye"></i></a>
-                                        </center>
+                                    <td><center>
+                                        <a href="/admin/message-guest/{{$m->id}}"><i style="font-size: 24px; color:#343a40" class="fas fa-eye"></i></a></center>
                                     </td>
-                                    <td><center>{{date('d F Y', strtotime($m->created_at))}}</center></td>
+                                    <td><center>{{$m->created_at->diffForHumans()}}</center></td>
+                                    <td>
+                                        {{-- Delete --}}
+										<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{$m->id}}"><i class="fas fa-trash-alt"></i></button>
+										<!-- Modal -->
+										<div class="modal fade" id="deleteModal{{$m->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+											<div class="modal-dialog modal-dialog-centered" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="exampleModalLongTitle"><i class="fas fa-user-times text-danger"></i> Konfirmasi</h5>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<center><p>Apakah Anda yakin menghapus pesan dari <b>{{$m->name}}</b></p></center>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i></button>
+														<form class="form group" action="/admin/message-guest/{{$m->id}}" method="POST">
+															@csrf
+															{{method_field('DELETE')}}
+															<button style="border-radius: 0px" type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+														</form>
+													</div>
+												</div>
+											</div>
+										</div>
+                                    </td>
                                 </tr>
                             @endforeach
                         @else
                             <tr>
-                                <td colspan="4"><center>Tidak ada pesan</center></td>
+                                <td colspan="7"><center>Tidak ada pesan</center></td>
                             </tr>
                         @endif
                     </tbody>

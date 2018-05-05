@@ -42,13 +42,14 @@
 								<li>
 									<a class="app-notification__item" href="javascript:;"><span class="app-notification__icon"><span class="fa-stack"><i class="fa fa-circle text-primary" style="font-size:28px"></i><i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></span>
 										<div>
-
+											<p class="app-notification__message">{{$m->sender}}</p>
+											<p class="app-notification__meta">{{$m->created_at->diffForHumans()}}</p>
 										</div>
 									</a>
 								</li>
 							@endforeach
 						</div>
-						<li class="app-notification__footer"><a href="#">Lihat semua pesan</a></li>
+						<li class="app-notification__footer"><a href="/user/message">Lihat semua pesan</a></li>
 					</ul>
 				</li>
 			@else
@@ -58,7 +59,7 @@
 						<div class="app-notification__content">
 
 						</div>
-						<li class="app-notification__footer"><a href="#">Lihat semua pesan masuk masuk</a></li>
+						<li class="app-notification__footer"><a href="/user/message">Lihat semua pesan masuk masuk</a></li>
 					</ul>
 				</li>
 			@endif

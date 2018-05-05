@@ -4,8 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\AdminMessage;
+use App\User;
 use App\UserMessage;
+use App\AdminMessageTemporary;
+use Auth;
 use DB;
+use Validator;
+use App\UserMessageTemporary;
+use Session;
 
 class UserMessageController extends Controller
 {
@@ -25,8 +31,8 @@ class UserMessageController extends Controller
      */
     public function index()
     {
-        $message = AdminMessage::where('view', '=', 0)->get();
-        $allMessage = AdminMessage::orderBy('id', 'desc')->get();
+        $message = AdminMessageTemporary::where('view', '=', 0)->get();
+        $allMessage = AdminMessageTemporary::orderBy('id', 'desc')->get();
         return view('messages.usermessagein', compact('message', 'allMessage'));
     }
 
@@ -35,10 +41,10 @@ class UserMessageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function msgOut()
+    public function sentMsg()
     {
-        $message = AdminMessage::where('view', '=', 0)->get();
-        $userMessage = UserMessage::where('view', 0)->get();
+        $message = AdminMessageTemporary::where('view', '=', 0)->get();
+        $userMessage = UserMessage::orderBy('id', 'desc')->get();
         return view('messages.usermessageout', compact('message', 'userMessage'));
     }
 
@@ -60,7 +66,78 @@ class UserMessageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'subject' => 'required|string|max:255',
+            'message' => 'required|string',
+        ],[
+
+            'subject.required' => 'Kolom subjek harus diisi',
+            'subject.max:255' => 'Subjek tidak boleh lebih dari 255 karakter',
+            'message.required' => 'Kolom Pesan harus diisi',
+        ]);
+
+        if ($validator->fails()) {
+            Session::flash('error', 'Pesan gagal dikirim');
+            return redirect('/user/message')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $message = new UserMessage;
+        $message->user_id = Auth::user()->id;
+        $message->subject = $request->subject;
+        $message->message = $request->message;
+        $message->save();
+
+        $message_temp = new UserMessageTemporary;
+        $message_temp->user_id = Auth::user()->id;
+        $message_temp->subject = $request->subject;
+        $message_temp->message = $request->message;
+        $message_temp->save();
+
+        Session::flash('success', 'Pesan berhasil dikirim');
+        return redirect('/user/message');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function msgToAdmin(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'subject' => 'required|string|max:255',
+            'message' => 'required|string',
+        ],[
+
+            'subject.required' => 'Kolom subjek harus diisi',
+            'subject.max:255' => 'Subjek tidak boleh lebih dari 255 karakter',
+            'message.required' => 'Kolom Pesan harus diisi',
+        ]);
+
+        if ($validator->fails()) {
+            Session::flash('error', 'Pesan gagal dikirim');
+            return redirect('/user/message-out')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $message = new UserMessage;
+        $message->user_id = Auth::user()->id;
+        $message->subject = $request->subject;
+        $message->message = $request->message;
+        $message->save();
+
+        $message_temp = new UserMessageTemporary;
+        $message_temp->user_id = Auth::user()->id;
+        $message_temp->subject = $request->subject;
+        $message_temp->message = $request->message;
+        $message_temp->save();
+
+        Session::flash('success', 'Pesan berhasil dikirim');
+        return redirect('/user/message-out');
     }
 
     /**
@@ -71,11 +148,30 @@ class UserMessageController extends Controller
      */
     public function show($id)
     {
-        $currentMessage = AdminMessage::find($id);
-        $message = UserMessage::where('view', '=', 0)->get();
+        $currentMessage = AdminMessageTemporary::find($id);
+        $message = AdminMessageTemporary::where('view', '=', 0)->get();
         $currentMessage->view = 1;
         $currentMessage->save();
-        return redirect('messages.showmessage', compact('message', 'currentMessage'));
+        return view('messages.usershowmessagein', compact('message', 'currentMessage'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function seeMsg($id)
+    {
+        // Selecet data to compact
+        $currentMessage = UserMessage::find($id);
+        $message = AdminMessageTemporary::where('view', '=', 0)->get();
+
+        // Update view status
+        $updateCurrentMessage = UserMessage::find($id);
+        $updateCurrentMessage->view = 1;
+        $updateCurrentMessage->save();
+        return view('messages.usershowmessageout', compact('message', 'currentMessage'));
     }
 
     /**

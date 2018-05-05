@@ -32,17 +32,27 @@
 				<button class="app-search__button"><i class="fa fa-search"></i></button>
 			</li>
 			<!--Notification Menu-->
-			@if(count($message))
-				<li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Show notifications"><i class="far fa-bell fa-lg"></i><span class="badge badge-warning">{{count($message)}}</span></a>
+			@if(count($message) || count($guestMessage))
+				<li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Show notifications"><i class="far fa-bell fa-lg"></i><span class="badge badge-warning">{{(count($message))+(count($guestMessage))}}</span></a>
 					<ul class="app-notification dropdown-menu dropdown-menu-right">
-						<li class="app-notification__title">{{count($message)}} pesan belum dibaca</li>
+						<li class="app-notification__title">{{(count($message))+(count($guestMessage))}} pesan belum dibaca</li>
 						<div class="app-notification__content">
 							@foreach($message as $m)
 								<li>
 									<a class="app-notification__item" href="javascript:;"><span class="app-notification__icon"><span class="fa-stack"><i class="fa fa-circle text-primary" style="font-size:28px"></i><i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></span>
 										<div>
-											<p class="app-notification__message">{{$m->name}}</p>
+											<p class="app-notification__message">{{$m->sender}}</p>
 											<p class="app-notification__meta">{{$m->created_at->diffForHumans()}}</p>
+										</div>
+									</a>
+								</li>
+							@endforeach
+							@foreach($guestMessage as $g)
+								<li>
+									<a class="app-notification__item" href="javascript:;"><span class="app-notification__icon"><span class="fa-stack"><i class="fa fa-circle text-primary" style="font-size:28px"></i><i class="fa fa-envelope fa-stack-1x fa-inverse"></i></span></span>
+										<div>
+											<p class="app-notification__message">{{$g->sender}}</p>
+											<p class="app-notification__meta">{{$g->created_at->diffForHumans()}}</p>
 										</div>
 									</a>
 								</li>
@@ -86,8 +96,8 @@
             <li><a class="app-menu__item @yield('active2')" href="{{route('admin.account-list')}}"><i class="app-menu__icon fas fa-user-secret mr-2"></i><span class="app-menu__label"> Admin</span></a></li>
             <li><a class="app-menu__item @yield('active3')" href="{{route('admin.team')}}"><i class="app-menu__icon fas fa-users mr-2"></i><span class="app-menu__label"> Tim</span></a></li>
 			<li><a class="app-menu__item @yield('active4')" href="{{route('schedule.index')}}"><i class="app-menu__icon fas fa-calendar-alt mr-2"></i><span class="app-menu__label"> Jadwal</span></a></li>
-			@if(count($message))
-				<li><a class="app-menu__item @yield('active5')" href="{{route('message.index')}}"><i class="app-menu__icon fas fa-envelope mr-2"></i><span class="app-menu__label"> Pesan Masuk<span class="badge badge-warning ml-2">{{count($message)}}</span></span></a></li>
+			@if(count($message) || count($guestMessage))
+				<li><a class="app-menu__item @yield('active5')" href="{{route('message.index')}}"><i class="app-menu__icon fas fa-envelope mr-2"></i><span class="app-menu__label"> Pesan Masuk<span class="badge badge-warning ml-2">{{(count($message))+(count($guestMessage))}}</span></span></a></li>
 			@else
 			<li><a class="app-menu__item @yield('active5')" href="{{route('message.index')}}"><i class="app-menu__icon fas fa-envelope mr-2"></i><span class="app-menu__label"> Pesan Masuk</span></a></li>
 			@endif
@@ -103,7 +113,7 @@
 			</div>
 			<ul class="app-breadcrumb breadcrumb">
 				<li class="breadcrumb-item"><i class="fas fa-tachometer-alt"></i></li>
-				<li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+				<li class="breadcrumb-item"><a href="#">@yield('breadcrumb')</a></li>
 			</ul>
 		</div>
 		<div>

@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Schedule;
 use App\User;
-use App\UserMessage;
+use App\UserMessageTemporary;
+use App\GuestMessage;
 use DB;
 use Validator;
 use Session;
@@ -27,10 +28,12 @@ class ScheduleController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
+		$guestMessage = GuestMessage::where('view', 0)->get();
 		$team = User::all();
-		$message = UserMessage::where('view', 0)->get();
+		$message = UserMessageTemporary::where('view', 0)->get();
 		$location = MatchLocation::all();
-		$schedule = DB::table('schedules')->join('users as team1', 'team1.id', '=', 'schedules.teamid1')
+		$schedule = DB::table('schedules')
+			->join('users as team1', 'team1.id', '=', 'schedules.teamid1')
 			->join('users as team2', 'team2.id', '=', 'schedules.teamid2')
 			->select('schedules.*', 'team1.teamname as team1', 'team2.teamname as team2')
 			->orderBy('id', 'asc')
@@ -40,7 +43,7 @@ class ScheduleController extends Controller {
 		// join users as team1 on team1.id = schedules.teamid1
 		// join users as team2 on team2.id = schedules.teamid2
 
-		return view('schedule.schedule', compact('schedule', 'team', 'location', 'message'));
+		return view('schedule.schedule', compact('schedule', 'team', 'location', 'message', 'guestMessage'));
 	}
 
 	/**
@@ -103,10 +106,7 @@ class ScheduleController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit($id) {
-		$team = User::all();
-		$schedule = Schedule::find($id);
-		return view('schedule.editschedule', compact('schedule'));
-
+		//
 	}
 
 	/**

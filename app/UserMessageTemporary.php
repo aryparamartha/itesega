@@ -4,13 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserMessage extends Model
+class UserMessageTemporary extends Model
 {
     protected $fillable = [
 		'user_id', 'subject', 'message', 'view',
 	];
 
-	public function users(){
+	public function user(){
 		return $this->belongsTo('App\User');
 	}
 }
