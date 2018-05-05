@@ -91,8 +91,6 @@
 				<li><a class="app-menu__item @yield('active3')" href="/user/message"><i class="app-menu__icon fas fa-envelope mr-2"></i><span class="app-menu__label"> Pesan Masuk</span></a></li>
 			@endif
 			<li><a class="app-menu__item @yield('active4')" href="{{route('user.message-out')}}"><i class="app-menu__icon fas fa-envelope mr-2 mr-2"></i><span class="app-menu__label"> Pesan Keluar</span></a></li>
-			<li><a class="app-menu__item @yield('active5')" href="#"><i class="app-menu__icon fa fa-th-list mr-2"></i><span class="app-menu__label">Tables</span></a></li>
-			<li><a class="app-menu__item @yield('active6')" href="#"><i class="app-menu__icon fas fa-file-alt mr-2"></i><span class="app-menu__label">Pages</span></a></li>
 		</ul>
 	</aside>
 	<main class="app-content">

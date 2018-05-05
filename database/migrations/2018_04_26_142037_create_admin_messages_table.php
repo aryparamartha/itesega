@@ -16,7 +16,7 @@ class CreateAdminMessagesTable extends Migration
         Schema::create('admin_messages', function (Blueprint $table) {
             $table->increments('id');
             $table->string('sender')->default('Admin');
-            $table->integer('receiver');
+            $table->integer('team_id');
             $table->string('subject');
             $table->text('message')->nullable();
             $table->boolean('view')->default(0);

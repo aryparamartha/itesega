@@ -16,7 +16,7 @@ class CreateAdminMessageTemporaries extends Migration
         Schema::create('admin_message_temporaries', function (Blueprint $table) {
             $table->increments('id');
             $table->string('sender')->default('Admin');
-            $table->integer('receiver');
+            $table->integer('team_id');
             $table->string('subject');
             $table->text('message')->nullable();
             $table->boolean('view')->default(0);

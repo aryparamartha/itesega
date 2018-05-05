@@ -8,13 +8,22 @@
 	<b><i class="fas fa-envelope"></i> Pesan Masuk</b>
 @endsection
 
+@section('breadcrumb')
+    <a href="/admin/message">Pesan Masuk / Tim</a>
+@endsection
+
 @section('content')
     <div class="card mb-4 elevation">
         <div class="card-body">
             <center>
-                @if(count($message) || count($guestMessage))
+                @if(count($message))
                     <div class="btn-group special mb-4" role="group" aria-label="...">
                         <a href="/admin/message" class="btn btn-primary-selected">Pesan dari Tim<span class="badge badge-warning ml-2">{{count($message)}}</span></a>
+                        <a href="/admin/message-guest" class="btn btn-primary">Pesan dari Guest</span></a>
+                    </div>
+                @elseif(count($guestMessage))
+                    <div class="btn-group special mb-4" role="group" aria-label="...">
+                        <a href="/admin/message" class="btn btn-primary-selected">Pesan dari Tim</span></a>
                         <a href="/admin/message-guest" class="btn btn-primary">Pesan dari Guest<span class="badge badge-warning ml-2">{{count($guestMessage)}}</span></a>
                     </div>
                 @else
@@ -68,7 +77,7 @@
                                     <label for="name" class="col-md-4 col-form-label text-md-left">{{ __('Ke') }}</label>
 
                                     <div class="col-md-8">
-                                        <select id="receiver" class="custom-select{{ $errors->has('receiver') ? ' is-invalid' : '' }}" name="receiver" required autofocus>
+                                        <select id="team_id" class="custom-select{{ $errors->has('team_id') ? ' is-invalid' : '' }}" name="team_id" required autofocus>
                                             @foreach($team as $t)
                                                 <option value="{{$t->id}}">{{$t->teamname}}</option>
                                             @endforeach
@@ -141,7 +150,7 @@
                                     <td><center>{{date('d F Y', strtotime($m->created_at))}}</center></td>
                                     <td>
                                         {{-- Delete --}}
-										<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{$m->id}}"><i class="fas fa-trash-alt"></i></button>
+										<center><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{$m->id}}"><i class="fas fa-trash-alt"></i></button></center>
 										<!-- Modal -->
 										<div class="modal fade" id="deleteModal{{$m->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 											<div class="modal-dialog modal-dialog-centered" role="document">

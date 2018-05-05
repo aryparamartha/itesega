@@ -102,8 +102,6 @@
 			<li><a class="app-menu__item @yield('active5')" href="{{route('message.index')}}"><i class="app-menu__icon fas fa-envelope mr-2"></i><span class="app-menu__label"> Pesan Masuk</span></a></li>
 			@endif
 			<li><a class="app-menu__item @yield('active6')" href="/admin/message-out"><i class="app-menu__icon fas fa-envelope mr-2"></i><span class="app-menu__label"> Pesan Keluar</span></a></li>
-			<li><a class="app-menu__item @yield('active7')" href="#"><i class="app-menu__icon fa fa-th-list mr-2"></i><span class="app-menu__label">Tables</span></a></li>
-			<li><a class="app-menu__item @yield('active8')" href="#"><i class="app-menu__icon fas fa-file-alt mr-2"></i><span class="app-menu__label">Pages</span></a></li>
 		</ul>
 	</aside>
 	<main class="app-content">
@@ -113,7 +111,7 @@
 			</div>
 			<ul class="app-breadcrumb breadcrumb">
 				<li class="breadcrumb-item"><i class="fas fa-tachometer-alt"></i></li>
-				<li class="breadcrumb-item"><a href="#">@yield('breadcrumb')</a></li>
+				<li class="breadcrumb-item">@yield('breadcrumb')</li>
 			</ul>
 		</div>
 		<div>

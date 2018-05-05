@@ -167,9 +167,6 @@ class UserMessageController extends Controller
         // Selecet data to compact
         $currentMessage = UserMessage::find($id);
         $message = AdminMessageTemporary::where('view', '=', 0)->get();
-        // Update view status
-        $currentMessage->view = 1;
-        $currentMessage->save();
         return view('messages.usershowmessageout', compact('message', 'currentMessage'));
     }
 

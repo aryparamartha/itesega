@@ -70,7 +70,7 @@ class MessageController extends Controller
         $message = UserMessageTemporary::where('view', '=', 0)->get();
         // $adminMessage = AdminMessage::orderBy('id', 'desc')->get();
         $adminMessage = DB::table('admin_messages')
-                            ->join('users', 'admin_messages.receiver', '=', 'users.id')
+                            ->join('users', 'admin_messages.team_id', '=', 'users.id')
                             ->select('admin_messages.*', 'users.teamname')
                             ->orderBy('id', 'desc')->get();
         return view('messages.messageout', compact('message', 'adminMessage', 'guestMessage', 'team'));
@@ -110,7 +110,7 @@ class MessageController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'receiver' => 'required',
+            'team_id' => 'required',
             'subject' => 'required|string|max:255',
             'message' => 'required|string',
         ],[
@@ -127,13 +127,13 @@ class MessageController extends Controller
         }
 
         $message = new AdminMessage;
-        $message->receiver = $request->receiver;
+        $message->team_id = $request->team_id;
         $message->subject = $request->subject;
         $message->message = $request->message;
         $message->save();
 
         $message_temp = new AdminMessageTemporary;
-        $message_temp->receiver = $request->receiver;
+        $message_temp->team_id = $request->team_id;
         $message_temp->subject = $request->subject;
         $message_temp->message = $request->message;
         $message_temp->save();
@@ -151,7 +151,7 @@ class MessageController extends Controller
     public function sendMsgInGuestView(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'receiver' => 'required',
+            'team_id' => 'required',
             'subject' => 'required|string|max:255',
             'message' => 'required|string',
         ],[
@@ -168,13 +168,13 @@ class MessageController extends Controller
         }
 
         $message = new AdminMessage;
-        $message->receiver = $request->receiver;
+        $message->team_id = $request->team_id;
         $message->subject = $request->subject;
         $message->message = $request->message;
         $message->save();
 
         $message_temp = new AdminMessageTemporary;
-        $message_temp->receiver = $request->receiver;
+        $message_temp->team_id = $request->team_id;
         $message_temp->subject = $request->subject;
         $message_temp->message = $request->message;
         $message_temp->save();
@@ -192,7 +192,7 @@ class MessageController extends Controller
     public function sendMsgInMsgOutView(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'receiver' => 'required',
+            'team_id' => 'required',
             'subject' => 'required|string|max:255',
             'message' => 'required|string',
         ],[
@@ -203,25 +203,25 @@ class MessageController extends Controller
 
         if ($validator->fails()) {
             Session::flash('error', 'Pesan gagal dikirim');
-            return redirect('/admin/message-guest')
+            return redirect('/admin/message-out')
                         ->withErrors($validator)
                         ->withInput();
         }
 
         $message = new AdminMessage;
-        $message->receiver = $request->receiver;
+        $message->team_id = $request->team_id;
         $message->subject = $request->subject;
         $message->message = $request->message;
         $message->save();
 
         $message_temp = new AdminMessageTemporary;
-        $message_temp->receiver = $request->receiver;
+        $message_temp->team_id = $request->team_id;
         $message_temp->subject = $request->subject;
         $message_temp->message = $request->message;
         $message_temp->save();
 
         Session::flash('success', 'Pesan berhasil dikirim');
-        return redirect('/admin/message');
+        return redirect('/admin/message-out');
     }
 
     /**
@@ -250,8 +250,8 @@ class MessageController extends Controller
 public function viewMsgOut($id)
     {
         $guestMessage = GuestMessage::where('view', 0)->get();
-        $currentMessage = AdminMessage::find($id);
         $message = UserMessageTemporary::where('view', '=', 0)->get();
+        $currentMessage = AdminMessage::find($id);
         return view('messages.showmessageout', compact('message', 'currentMessage', 'guestMessage'));
 
     }

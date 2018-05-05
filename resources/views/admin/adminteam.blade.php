@@ -5,7 +5,7 @@
 @endsection
 
 @section('breadcrumb')
-	Daftar Tim
+	<a href="/admin/team">Daftar Tim</a>
 @endsection
 
 @section('pagetitle')

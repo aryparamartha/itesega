@@ -8,6 +8,10 @@
 	<b><i class="fas fa-user-secret"></i> Daftar Admin</b>
 @endsection
 
+@section('breadcrumb')
+	<a href="/admin/admin-account-list">Daftar Admin</a>
+@endsection
+
 @section('content')
 	<div class="card mb-4 elevation">
 		<div class="card-body">

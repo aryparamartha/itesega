@@ -8,6 +8,10 @@
 	<b><i class="fas fa-calendar-alt"></i> Jadwal</b>
 @endsection
 
+@section('breadcrumb')
+	<a href="/admin/schedule">Jadwal</a>
+@endsection
+
 @section('content')
 	@if(count($location))
 		@foreach($location as $l)

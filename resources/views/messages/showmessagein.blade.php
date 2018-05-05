@@ -4,6 +4,10 @@
     active
 @endsection
 
+@section('breadcrumb')
+    <a href="/admin/message/{{$currentMessage->id}}">Pesan Masuk / Tim / {{$currentMessage->user->teamname}}</a>
+@endsection
+
 @section('pagetitle')
 <b><i class="fas fa-comments"></i> Pesan Masuk</b>
 @endsection

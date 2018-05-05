@@ -38,13 +38,13 @@ class GuestMessageController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
+            'sender' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
             'subject' => 'required|string|max:255',
             'message' => 'required|string',
         ],[
-            'name.required' => 'Kolom nama harus diisi',
-            'name.max' => 'Nama tidak boleh lebih dari 255 karakter',
+            'sender.required' => 'Kolom nama harus diisi',
+            'sender.max' => 'Nama tidak boleh lebih dari 255 karakter',
             'email' => 'Email tidak boleh lebih dari 255 karakter',
             'message.required' => 'Pesan harus diisi',
         ]);
@@ -56,7 +56,7 @@ class GuestMessageController extends Controller
                         ->withInput();
         }
         $message = new GuestMessage;
-        $message->name = $request->name;
+        $message->sender = $request->sender;
         $message->email = $request->email;
         $message->subject = $request->subject;
         $message->message = $request->message;

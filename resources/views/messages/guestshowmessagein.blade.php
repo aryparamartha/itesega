@@ -8,6 +8,10 @@
 <b><i class="fas fa-envelope"></i> Pesan Masuk</b>
 @endsection
 
+@section('breadcrumb')
+    <a href="/admin/message-guest">Pesan Masuk / Guest / {{$currentMessage->sender}}</a>
+@endsection
+
 @section('content')
     <div class="card mb-4 elevation">
         <div class="card-body">

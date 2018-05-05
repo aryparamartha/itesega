@@ -182,11 +182,11 @@
                         <form action="/guest/message" method="post">
                             @csrf
                             <div class="form-group row">
-                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" placeholder="Nama" required>
+                                <input id="sender" type="text" class="form-control{{ $errors->has('sender') ? ' is-invalid' : '' }}" name="sender" placeholder="Nama" required>
 
-                                @if ($errors->has('name'))
+                                @if ($errors->has('sender'))
                                     <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <strong>{{ $errors->first('sender') }}</strong>
                                     </span>
                                 @endif
                             </div>

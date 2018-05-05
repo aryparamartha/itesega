@@ -8,6 +8,10 @@
 	<b><i class="fas fa-calendar-alt"></i> Dashboard</b>
 @endsection
 
+@section('breadcrumb')
+    <a href="/admin/dashboard">Dashboard</a>
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col-md-6 col-lg-3">

@@ -15,7 +15,7 @@ class CreateGuestMessagesTable extends Migration
     {
         Schema::create('guest_messages', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('user_id');
+            $table->string('sender');
             $table->string('email');
             $table->string('subject');
             $table->text('message')->nullable();

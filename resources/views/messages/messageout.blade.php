@@ -8,6 +8,10 @@
 	<b><i class="fas fa-envelope"></i> Pesan Keluar</b>
 @endsection
 
+@section('breadcrumb')
+    <a href="/admin/message-out">Pesan Keluar</a>
+@endsection
+
 @section('content')
     <div class="card mb-4 elevation">
         <div class="card-body">
@@ -55,7 +59,7 @@
                                     <label for="name" class="col-md-4 col-form-label text-md-left">{{ __('Ke') }}</label>
 
                                     <div class="col-md-8">
-                                        <select id="receiver" class="custom-select{{ $errors->has('receiver') ? ' is-invalid' : '' }}" name="receiver" required autofocus>
+                                        <select id="team_id" class="custom-select{{ $errors->has('team_id') ? ' is-invalid' : '' }}" name="team_id" required autofocus>
                                             @foreach($team as $t)
                                                 <option value="{{$t->id}}">{{$t->teamname}}</option>
                                             @endforeach
@@ -124,7 +128,7 @@
                                     <td><center>{{date('d F Y', strtotime($m->created_at))}}</center></td>
                                     <td>
                                         {{-- Delete --}}
-										<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{$m->id}}"><i class="fas fa-trash-alt"></i></button>
+										<center><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{$m->id}}"><i class="fas fa-trash-alt"></i></button></center>
 										<!-- Modal -->
 										<div class="modal fade" id="deleteModal{{$m->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 											<div class="modal-dialog modal-dialog-centered" role="document">
