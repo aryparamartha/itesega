@@ -15,7 +15,7 @@ class CreateUserMessageTemporariesTable extends Migration
     {
         Schema::create('user_message_temporaries', function (Blueprint $table) {
             $table->increments('id');
-            $table->foreign('user_id')->reference('id')->on('users')->onDelete('cascade');
+            $table->integer('user_id')->reference('id')->on('users')->onDelete('cascade');
             $table->string('subject');
             $table->text('message')->nullable();
             $table->boolean('view')->default(0);

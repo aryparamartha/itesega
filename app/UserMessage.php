@@ -10,7 +10,7 @@ class UserMessage extends Model
 		'user_id', 'subject', 'message', 'view',
 	];
 
-	public function users(){
-		return $this->belongsTo('App\User');
+	public function user(){
+		return $this->belongsTo(User::class);
 	}
 }
