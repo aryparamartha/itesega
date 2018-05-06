@@ -105,9 +105,9 @@
                 <table id="datatables" class="table">
                     <thead>
                         <th>#</th>
-                        <th>Subjek</th>
-                        <th>Pesan</th>
-                        <th>Waktu</th>
+                        <th><center>Subjek</center></th>
+                        <th><center>Pesan</center></th>
+                        <th><center>Waktu</center></th>
                     </thead>
                     <tbody>
                         @if(count($allMessage))

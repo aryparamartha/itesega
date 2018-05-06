@@ -46,45 +46,51 @@
     <section id="cara-pendaftaran">
         <div class="container wow fadeIn">
             <div class="section-header">
-            <h3 class="section-title">Cara Pendaftaran</h3>
-            <p class="section-description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
+            <h3 class="section-title">Rangkaian Acara</h3>
+            <p class="section-description"><b>IT-ESEGA</b> dilakukan dengan rangkaian acara sebagai berikut</p>
             </div>
             <div class="row">
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="box elevation-home">
-                <h4 class="title"><a href="">Lorem Ipsum</a></h4>
-                <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+                <div class="box">
+                <div class="icon"><a class="icon-color" href="#cara-pendaftaran"><i class="fas fa-desktop"></i></a></div>
+                <h4 class="title"><a href="#cara-pendaftaran">Pendaftaran</a></h4>
+                <p class="description">Pendaftaran dilaksanakan secara <i style="color:#212529">online</i> pada <i style="color:#212529">website</i> <b>IT-ESEGA</b><br><i class="fas fa-calendar-check mr-2"></i>22 Juli-30 Agustus</p>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
-                <div class="box elevation-home">
-                <h4 class="title"><a href="">Dolor Sitema</a></h4>
-                <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
+                <div class="box">
+                <div class="icon"><a class="icon-color" href="#cara-pendaftaran"><i class="fas fa-desktop"></i></a></div>
+                <h4 class="title"><a href="">Technical Meeting</a></h4>
+                <p class="description"><i style="color:#212529">Technical Meeting</i> dilakukan pada Aula Wicwakrama, Fakultas Teknik Jl. PB. Sudirman<br><i class="fas fa-calendar-check mr-2"></i>2 September</p>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-                <div class="box elevation-home">
-                <h4 class="title"><a href="">Sed ut perspiciatis</a></h4>
-                <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
+                <div class="box">
+                <div class="icon"><a class="icon-color" href="#cara-pendaftaran"><i class="fas fa-desktop"></i></a></div>
+                <h4 class="title"><a href="">Penyisihan</a></h4>
+                <p class="description">Penyisihan dilaksanakan di <br><b>Acyuta Gubuk Gaming</b><br><i class="fas fa-calendar-check mr-2"></i>23-24 September</p>
                 </div>
             </div>
 
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="box elevation-home">
-                <h4 class="title"><a href="">Magni Dolores</a></h4>
-                <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                <div class="box">
+                <div class="icon"><a class="icon-color" href="#cara-pendaftaran"><i class="fas fa-desktop"></i></a></div>
+                <h4 class="title"><a href="">Per 8 Final</a></h4>
+                <p class="description">Per 8 Final dilaksanakan di <br><b>Acyuta Gubuk Gaming</b><br><i class="fas fa-calendar-check mr-2"></i>1 Oktober</p>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
-                <div class="box elevation-home">
-                <h4 class="title"><a href="">Nemo Enim</a></h4>
-                <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
+                <div class="box">
+                <div class="icon"><a class="icon-color" href="#cara-pendaftaran"><i class="fas fa-desktop"></i></a></div>
+                <h4 class="title"><a href="">Semi Final</a></h4>
+                <p class="description">Semi Final dilaksanakan di <br><b>Acyuta Gubuk Gaming</b><br><i class="fas fa-calendar-check mr-2"></i>1 Oktober</p>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-                <div class="box elevation-home">
-                <h4 class="title"><a href="">Eiusmod Tempor</a></h4>
-                <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
+                <div class="box">
+                <div class="icon"><a class="icon-color" href="#cara-pendaftaran"><i class="fas fa-desktop"></i></a></div>
+                <h4 class="title"><a href="">Final</a></h4>
+                <p class="description">Final dilaksanakan di <br><b>Acyuta Gubuk Gaming</b><br><i class="fas fa-calendar-check mr-2"></i>1 Oktober</p>
                 </div>
             </div>
             </div>
@@ -102,7 +108,7 @@
                 <p class="cta-text">sudah memiliki tim dan mendaftarkan tim kamu di website IT-ESEGA? Tinggal sedikit lagi untuk melengkapi biodata tim kalian dan kirim bukti pembyaran dengan menekan tombol berikut.</p>
             </div>
             <div class="col-lg-3 cta-btn-container text-center">
-                <a class="cta-btn align-middle" href="#">Lengkapi</a>
+                <a class="cta-btn align-middle" href="/tim">Lengkapi</a>
             </div>
             </div>
         </div>

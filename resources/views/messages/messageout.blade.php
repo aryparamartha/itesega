@@ -107,17 +107,17 @@
                 <table id="datatables" class="table">
                     <thead>
                         <th>#</th>
-                        <th>Penerima</th>
-                        <th>Subjek</th>
-                        <th>Pesan</th>
-                        <th>Waktu</th>
-                        <th>Aksi</th>
+                        <th><center>Penerima</center></th>
+                        <th><center>Subjek</center></th>
+                        <th><center>Pesan</center></th>
+                        <th><center>Waktu</center></th>
+                        <th><center>Aksi</center></th>
                     </thead>
                     <tbody>
                         @if(count($adminMessage))
                             @foreach($adminMessage as $m)
                                 <tr>
-                                    <td><center>{{$loop->iteration}}</center></td>
+                                    <td>{{$loop->iteration}}</td>
                                     <td><center>{{$m->teamname}}</center></td>
                                     <td><center>{{$m->subject}}</center></td>
                                     <td>

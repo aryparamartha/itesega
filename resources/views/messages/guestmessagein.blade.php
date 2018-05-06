@@ -16,9 +16,19 @@
     <div class="card mb-4 elevation">
         <div class="card-body">
             <center>
-                @if(count($message) || count($guestMessage))
+                @if(count($message) && count($guestMessage))
                     <div class="btn-group special mb-4" role="group" aria-label="...">
                         <a href="/admin/message" class="btn btn-primary">Pesan dari Tim<span class="badge badge-warning ml-2">{{count($message)}}</span></a>
+                        <a href="/admin/message-guest" class="btn btn-primary-selected">Pesan dari Guest<span class="badge badge-warning ml-2">{{count($guestMessage)}}</span></a>
+                    </div>
+                @elseif(count($message))
+                    <div class="btn-group special mb-4" role="group" aria-label="...">
+                        <a href="/admin/message" class="btn btn-primary">Pesan dari Tim<span class="badge badge-warning ml-2">{{count($message)}}</span></a>
+                        <a href="/admin/message-guest" class="btn btn-primary-selected">Pesan dari Guest</span></a>
+                    </div>
+                @elseif(count($guestMessage))
+                    <div class="btn-group special mb-4" role="group" aria-label="...">
+                        <a href="/admin/message" class="btn btn-primary">Pesan dari Tim</a>
                         <a href="/admin/message-guest" class="btn btn-primary-selected">Pesan dari Guest<span class="badge badge-warning ml-2">{{count($guestMessage)}}</span></a>
                     </div>
                 @else
@@ -120,12 +130,12 @@
                 <table id="datatables" class="table">
                     <thead>
                         <th>#</th>
-                        <th>Pengirim</th>
-                        <th>Email</th>
-                        <th>Subjek</th>
-                        <th>Pesan</th>
-                        <th>Waktu</th>
-                        <th>Aksi</th>
+                        <th><center>Pengirim</center></th>
+                        <th><center>Email</center></th>
+                        <th><center>Subjek</center></th>
+                        <th><center>Pesan</center></th>
+                        <th><center>Waktu<center></th>
+                        <th><center>Aksi</center></th>
                     </thead>
                     <tbody>
                         @if(count($allMessage))

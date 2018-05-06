@@ -14,14 +14,15 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700" rel="stylesheet">
 
+    <!-- Styles -->
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+
     <!-- Font Awesome -->
     <script type="text/javascript" src="{{ asset('js/fontawesome-all.js') }}"></script>
 
     <!-- Library Css -->
     <link rel="stylesheet" href="{{asset("css/animate.min.css")}}">
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
 </head>
 <body>
