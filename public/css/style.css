@@ -841,7 +841,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 #team .member span {
-  font-style: italic;
+  /* font-style: italic; */
   display: block;
   font-size: 13px;
 }
@@ -997,4 +997,9 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 .special .btn {
   flex: 1
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+
 }
