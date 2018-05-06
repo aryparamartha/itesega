@@ -87,14 +87,15 @@
 		<ul class="app-menu">
             <li><a class="app-menu__item @yield('active1')" href="{{route('admin.dashboard')}}"><i class="app-menu__icon fas fa-tachometer-alt mr-2"></i><span class="app-menu__label"> Dashboard</span></a></li>
             <li><a class="app-menu__item @yield('active2')" href="{{route('admin.account-list')}}"><i class="app-menu__icon fas fa-user-secret mr-2"></i><span class="app-menu__label"> Admin</span></a></li>
-            <li><a class="app-menu__item @yield('active3')" href="{{route('admin.team')}}"><i class="app-menu__icon fas fa-users mr-2"></i><span class="app-menu__label"> Tim</span></a></li>
-			<li><a class="app-menu__item @yield('active4')" href="{{route('schedule.index')}}"><i class="app-menu__icon fas fa-calendar-alt mr-2"></i><span class="app-menu__label"> Jadwal</span></a></li>
+			<li><a class="app-menu__item @yield('active3')" href="{{route('admin.team')}}"><i class="app-menu__icon fas fa-users mr-2"></i><span class="app-menu__label"> Tim</span></a></li>
+			<li><a class="app-menu__item @yield('active4')" href="{{route('admin.champion')}}"><i class="app-menu__icon fas fa-trophy mr-2"></i><span class="app-menu__label"> Juara</span></a></li>
+			<li><a class="app-menu__item @yield('active5')" href="{{route('schedule.index')}}"><i class="app-menu__icon fas fa-calendar-alt mr-2"></i><span class="app-menu__label"> Jadwal</span></a></li>
 			@if(count($message) || count($guestMessage))
-				<li><a class="app-menu__item @yield('active5')" href="{{route('message.index')}}"><i class="app-menu__icon fas fa-envelope mr-2"></i><span class="app-menu__label"> Pesan Masuk<span class="badge badge-warning ml-2">{{(count($message))+(count($guestMessage))}}</span></span></a></li>
+				<li><a class="app-menu__item @yield('active6')" href="{{route('message.index')}}"><i class="app-menu__icon fas fa-envelope mr-2"></i><span class="app-menu__label"> Pesan Masuk<span class="badge badge-warning ml-2">{{(count($message))+(count($guestMessage))}}</span></span></a></li>
 			@else
-			<li><a class="app-menu__item @yield('active5')" href="{{route('message.index')}}"><i class="app-menu__icon fas fa-envelope mr-2"></i><span class="app-menu__label"> Pesan Masuk</span></a></li>
+				<li><a class="app-menu__item @yield('active6')" href="{{route('message.index')}}"><i class="app-menu__icon fas fa-envelope mr-2"></i><span class="app-menu__label"> Pesan Masuk</span></a></li>
 			@endif
-			<li><a class="app-menu__item @yield('active6')" href="/admin/message-out"><i class="app-menu__icon fas fa-envelope mr-2"></i><span class="app-menu__label"> Pesan Keluar</span></a></li>
+			<li><a class="app-menu__item @yield('active7')" href="/admin/message-out"><i class="app-menu__icon fas fa-envelope mr-2"></i><span class="app-menu__label"> Pesan Keluar</span></a></li>
 		</ul>
 	</aside>
 	<main class="app-content">

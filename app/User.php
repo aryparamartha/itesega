@@ -41,4 +41,8 @@ class User extends Authenticatable {
 	public function member(){
 		return $this->hasMany('App\Member', 'teamid');
 	}
+
+	public function champion(){
+		return $this->hasMany(Champion::class, 'team_id');
+	}
 }

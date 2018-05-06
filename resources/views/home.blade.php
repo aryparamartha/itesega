@@ -113,49 +113,44 @@
         </div>
     </section><!-- #call-to-action -->
     <!--==========================
-      Team Section
+    Team Section
     ============================-->
     <section id="team">
         <div class="container wow fadeInUp">
             <div class="section-header">
-            <h3 class="section-title">Juara</h3>
-            <p class="section-description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
+                <h3 class="section-title">Juara</h3>
+                <p class="section-description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
             </div>
             <div class="row">
-            <div class="col-lg-3 col-md-6">
-                <div class="member">
-                    <div class="pic"><img src="img/dummy.svg" alt=""></div>
-                    <h4>NAVI</h4>
-                    <span>2015</span>
+                @if(count($champion))
+                    @foreach($champion as $c)
+                        <div class="col-lg-3 col-md-6">
+                            <div class="member">
+                                <div class="pic"><img src="/avatars/{{$c->user->avatar}}" alt=""></div>
+                                <a class="text-dark" href="/champion/{{$c->id}}"><h4>{{$c->user->teamname}}</h4></a>
+                                <span>{{$c->year}}</span>
+                            </div>
+                        </div>
+                    @endforeach
+                @else
+                    <div class="col-lg-3 col-md-6">
+                        <div class="member">
+                            <div class="pic"><img src="/avatars/noavatar.png" alt=""></div>
+                            <h4>Belum ada juara</h4>
+                            <span>yyyy</span>
+                        </div>
+                    </div>
+                @endif
+                <div class="col-lg-3 col-md-6">
+                    <div class="member">
+                        <div class="pic"><img src="/avatars/noavatar.png" alt=""></div>
+                        <h4>?</h4>
+                        <span>2018</span>
+                    </div>
                 </div>
             </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="member">
-                    <div class="pic"><img src="img/dummy.svg" alt=""></div>
-                    <h4>EG</h4>
-                    <span>2016</span>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="member">
-                    <div class="pic"><img src="img/dummy.svg" alt=""></div>
-                    <h4>Liquid</h4>
-                    <span>2017</span>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="member">
-                    <div class="pic"><img src="img/dummy.svg" alt=""></div>
-                    <h4>?</h4>
-                    <span>2018</span>
-                </div>
-            </div>
-
         </div>
-        </section><!-- #team -->
+    </section><!-- #team -->
     <!--==========================
     Contact Section
     ============================-->

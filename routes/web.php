@@ -11,14 +11,18 @@
 |
  */
 
-Route::get('/', function () {
-	return view('home');
-});
+// Route::get('/', function () {
+// 	return view('home');
+// });
 
-// route untuk login
+Route::GET('/', 'IndexController@index');
+
+Route::GET('/champion/{id}', 'IndexController@detailChampion');
+
+// route authentication user
 Auth::routes();
 
-// route untuk mengakses halaman home
+// route halaman home setelah login
 Route::get('/home', 'HomeController@index')->name('home');
 
 // route untuk user
@@ -112,4 +116,19 @@ Route::group(['prefix' => 'admin'], function () {
 
 	// route untuk mengirim pesan dari view pesa keluar
 	Route::POST('/message-out', 'MessageController@sendMsgInMsgOutView');
+
+	// route untuk menagkses halaman jaura pada menu admin
+	Route::GET('/champion', 'AdminController@champion')->name('admin.champion');
+
+	// route untuk menambahkan juara
+	Route::POST('/champion', 'AdminController@addChampion')->name('admin.add-champion');
+
+	// route untuk untuk mengupdate juara
+	Route::PUT('/champion/{id}', 'AdminController@updateChampion')->name('admin.update-champion');
+
+	// route untuk menghapus juara
+	Route::DELETE('/champion/{id}', 'AdminController@deleteChampion')->name('admin.delete-champion');
+
+	// route untuk mengakses detail tim juara
+	Route::GET('/champion/{id}', 'AdminController@detailChampion')->name('admin.detail-champion');
 });

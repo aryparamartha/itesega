@@ -1,6 +1,6 @@
 @extends('layouts.admin_layout')
 
-@section('active6')
+@section('active7')
     active
 @endsection
 

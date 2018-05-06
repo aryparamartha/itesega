@@ -6,6 +6,7 @@ use App\Admin;
 use App\schedule;
 use App\User;
 use App\Member;
+use App\Champion;
 use App\UserMessageTemporary;
 use Validator;
 use Session;
@@ -70,7 +71,7 @@ class AdminController extends Controller {
 
 		if ($validator->fails()) {
 			Session::flash('error', 'Admin gagal ditambahkan');
-            return redirect('/team')
+            return redirect('/admin/admin-account-list')
                         ->withErrors($validator)
                         ->withInput();
         }
@@ -127,7 +128,7 @@ class AdminController extends Controller {
 
 		if ($validator->fails()) {
 			Session::flash('error', 'Admin gagal diubah');
-            return redirect('/team')
+            return redirect('/admin/admin-account-list')
                         ->withErrors($validator)
                         ->withInput();
         }
@@ -215,5 +216,107 @@ class AdminController extends Controller {
 		$team = User::find($id);
 		$member = Member::where('teamid', '=', $id)->get();
 		return view('admin.adminteamdetail', compact('team', 'guestMessage', 'message', 'member'));
+	}
+
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function champion() {
+		$guestMessage = GuestMessage::where('view', 0)->get();
+		$message = UserMessageTemporary::where('view', 0)->get();
+		$team = User::all();
+		$champion = Champion::all();
+		return view('admin.adminchampion', compact('guestMessage', 'message', 'team', 'champion'));
+	}
+
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function addChampion(Request $request) {
+		$validator = Validator::make($request->all(), [
+			'year' => 'required',
+			'team_id' => 'required',
+		],[
+			'year.required' => 'Kolom tahun harus diisi',
+			'team_id.required' => 'Kolom tim harus diisi',
+		]);
+
+		if ($validator->fails()) {
+			Session::flash('error', 'Juara gagal ditambahkan');
+            return redirect('/admin/champion')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+		$champion = new Champion;
+		$champion->year = $request->year;
+		$champion->team_id = $request->team_id;
+		$champion->save();
+		Session::flash('success', 'Juara berhasil ditambahkan');
+		return redirect('/admin/champion');
+	}
+
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function updateChampion(Request $request, $id) {
+		$validator = Validator::make($request->all(), [
+			'year' => 'required',
+			'team_id' => 'required',
+		],[
+			'year.required' => 'Kolom tahun harus diisi',
+			'team_id.required' => 'Kolom tim harus diisi',
+		]);
+
+		if ($validator->fails()) {
+			Session::flash('error', 'Juara gagal diperbaharui');
+            return redirect('/admin/champion')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+		$champion = Champion::find($id);
+		$champion->year = $request->year;
+		$champion->team_id = $request->team_id;
+		$champion->save();
+		Session::flash('success', 'Juara berhasil diperbaharui');
+		return redirect('/admin/champion');
+	}
+
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function deleteChampion($id) {
+		$champion = Champion::find($id);
+		$champion->delete();
+		Session::flash('success', 'Juara berhasil dihapus');
+		return redirect('/admin/champion');
+	}
+
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function detailChampion($id) {
+		$guestMessage = GuestMessage::where('view', 0)->get();
+		$message = UserMessageTemporary::where('view', 0)->get();
+		$team = User::find($id);
+		$member = Member::where('teamid', '=', $id)->get();
+		return view('admin.adminchampiondetail', compact('team', 'guestMessage', 'message', 'member'));
 	}
 }

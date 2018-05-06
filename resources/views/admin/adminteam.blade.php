@@ -35,7 +35,7 @@
 										{{-- <center><a onclick="team_member({{ $t->id }})" href="#" data-toggle="modal" data-target="#teamDetail{{$t->id}}" class="text-dark"><b>{{$t->teamname}}</b></a></center> --}}
 										<center><b>{{$t->teamname}}</b></center>
 									</td>
-									<td><center><a href="/admin/team/{{$t->id}}" class="text-success"><i style="font-size: 24px" class="fas fa-eye"></i></i></center></td>
+									<td><center><a href="/admin/team/{{$t->id}}" class="text-dark"><i style="font-size: 24px" class="fas fa-eye"></i></i></center></td>
 									<td>
 										@if($t->payment == null)
 											<center><i style="font-size: 24px" class="text-danger fas fa-times"></i></center>
