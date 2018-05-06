@@ -202,4 +202,18 @@ class AdminController extends Controller {
 		$message = UserMessageTemporary::where('view', 0)->get();
 		return view('admin.adminteam', compact('team', 'message', 'guestMessage'));
 	}
+
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function detailTeam($id) {
+		$guestMessage = GuestMessage::where('view', 0)->get();
+		$message = UserMessageTemporary::where('view', 0)->get();
+		$team = User::find($id);
+		$member = Member::where('teamid', '=', $id)->get();
+		return view('admin.adminteamdetail', compact('team', 'guestMessage', 'message', 'member'));
+	}
 }

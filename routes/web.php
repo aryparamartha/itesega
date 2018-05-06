@@ -59,6 +59,9 @@ Route::group(['prefix' => 'admin'], function () {
 	// route untuk mengakses daftar tim yang telah mendaftar
 	Route::GET('/team', 'AdminController@team')->name('admin.team');
 
+	// route untuk mengakses detail tim yang telah medaftara
+	Route::GET('/team/{id}', 'AdminController@detailTeam')->name('admin.team-detail');
+
 	// route untuk mengakses anggota dari tim oleh admin
 	Route::GET('/show-member/{id}', 'AdminController@show');
 

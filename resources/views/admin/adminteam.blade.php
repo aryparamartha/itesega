@@ -19,7 +19,8 @@
 				<table id="datatables" class="table">
 					<thead>
 						<th>#</th>
-						<th><center>Nama</center></th>
+						<th><center>Nama Tim</center></th>
+						<th><center>Detail Tim</center></th>
 						<th><center>Status Pembayaran</center></th>
 						<th><center>Bukti Pembayaran</center></th>
 						<th><center>Status Konfirmasi</center></th>
@@ -31,8 +32,10 @@
 								<tr>
 									<td>{{$loop->iteration}}</td>
 									<td>
-										<center><a onclick="team_member({{ $t->id }})" href="#" data-toggle="modal" data-target="#teamDetail{{$t->id}}" class="text-dark"><b>{{$t->teamname}}</b></a></center>
+										{{-- <center><a onclick="team_member({{ $t->id }})" href="#" data-toggle="modal" data-target="#teamDetail{{$t->id}}" class="text-dark"><b>{{$t->teamname}}</b></a></center> --}}
+										<center><b>{{$t->teamname}}</b></center>
 									</td>
+									<td><center><a href="/admin/team/{{$t->id}}" class="text-success"><i style="font-size: 24px" class="fas fa-eye"></i></i></center></td>
 									<td>
 										@if($t->payment == null)
 											<center><i style="font-size: 24px" class="text-danger fas fa-times"></i></center>
