@@ -59,14 +59,14 @@
             </div>
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
                 <div class="box">
-                <div class="icon"><a class="icon-color" href="#cara-pendaftaran"><i class="fas fa-desktop"></i></a></div>
+                <div class="icon"><a class="icon-color" href="#cara-pendaftaran"><i class="far fa-comments"></i></a></div>
                 <h4 class="title"><a href="">Technical Meeting</a></h4>
                 <p class="description"><i style="color:#212529">Technical Meeting</i> dilakukan pada Aula Wicwakrama, Fakultas Teknik Jl. PB. Sudirman<br><i class="fas fa-calendar-check mr-2"></i>2 September</p>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
                 <div class="box">
-                <div class="icon"><a class="icon-color" href="#cara-pendaftaran"><i class="fas fa-desktop"></i></a></div>
+                <div class="icon"><a class="icon-color" href="#cara-pendaftaran"><i class="fas fa-chess-board"></i></a></div>
                 <h4 class="title"><a href="">Penyisihan</a></h4>
                 <p class="description">Penyisihan dilaksanakan di <br><b>Acyuta Gubuk Gaming</b><br><i class="fas fa-calendar-check mr-2"></i>23-24 September</p>
                 </div>
@@ -74,21 +74,21 @@
 
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
                 <div class="box">
-                <div class="icon"><a class="icon-color" href="#cara-pendaftaran"><i class="fas fa-desktop"></i></a></div>
+                <div class="icon"><a class="icon-color" href="#cara-pendaftaran"><i class="fas fa-chess-board"></i></a></div>
                 <h4 class="title"><a href="">Per 8 Final</a></h4>
                 <p class="description">Per 8 Final dilaksanakan di <br><b>Acyuta Gubuk Gaming</b><br><i class="fas fa-calendar-check mr-2"></i>1 Oktober</p>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
                 <div class="box">
-                <div class="icon"><a class="icon-color" href="#cara-pendaftaran"><i class="fas fa-desktop"></i></a></div>
+                <div class="icon"><a class="icon-color" href="#cara-pendaftaran"><i class="fas fa-chess"></i></a></div>
                 <h4 class="title"><a href="">Semi Final</a></h4>
                 <p class="description">Semi Final dilaksanakan di <br><b>Acyuta Gubuk Gaming</b><br><i class="fas fa-calendar-check mr-2"></i>1 Oktober</p>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
                 <div class="box">
-                <div class="icon"><a class="icon-color" href="#cara-pendaftaran"><i class="fas fa-desktop"></i></a></div>
+                <div class="icon"><a class="icon-color" href="#cara-pendaftaran"><i class="fas fa-trophy"></i></a></div>
                 <h4 class="title"><a href="">Final</a></h4>
                 <p class="description">Final dilaksanakan di <br><b>Acyuta Gubuk Gaming</b><br><i class="fas fa-calendar-check mr-2"></i>1 Oktober</p>
                 </div>
