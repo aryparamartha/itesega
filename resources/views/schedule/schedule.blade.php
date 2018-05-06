@@ -18,7 +18,7 @@
 			<div class="alert alert-success elevation" role="alert">
 				<h5><i class="fas fa-map-marker-alt"></i> Lokasi pertandingan: <b>{{$l->location}}</b><br></h5>
 				{{-- Edit match location --}}
-				<button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#changeLocationModal"><i class="fas fa-map"></i></button>
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#changeLocationModal"><i class="fas fa-map"></i></button>
 				<!-- Modal -->
 				<div class="modal fade" id="changeLocationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered" role="document">
@@ -176,10 +176,10 @@
 					<thead>
 						<tr>
 							<th>#</th>
-							<th>Tanggal</th>
-							<th>Waktu</th>
-							<th>Pertandingan</th>
-							<th>Aksi</th>
+							<th><center>Tanggal</center></th>
+							<th><center>Waktu</center></th>
+							<th><center>Pertandingan</center></th>
+							<th><center>Aksi</center></th>
 						</tr>
 					</thead>
 					<tbody>

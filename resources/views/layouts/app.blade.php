@@ -17,9 +17,6 @@
     <!-- Styles -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
 
-    <!-- Font Awesome -->
-    <script type="text/javascript" src="{{ asset('js/fontawesome-all.js') }}"></script>
-
     <!-- Library Css -->
     <link rel="stylesheet" href="{{asset("css/animate.min.css")}}">
 

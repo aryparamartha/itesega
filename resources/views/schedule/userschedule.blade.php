@@ -27,20 +27,20 @@
 				<table id="datatables" class="table">
 					<thead>
 						<tr>
-							<th scope="col">#</th>
-							<th scope="col">Tanggal</th>
-							<th scope="col">Waktu</th>
-							<th scope="col">Pertandingan</th>
+							<th>#</th>
+							<th><center>Tanggal</center></th>
+							<th><center>Waktu</center></th>
+							<th><center>Pertandingan</center></th>
 						</tr>
 					</thead>
 					<tbody>
 						@if(count($schedule))
 							@foreach($schedule as $s)
 								<tr>
-									<td>{{$loop->iteration}}</td>
-									<td>{{date('d F Y', strtotime($s->date))}}</td>
-									<td>{{date('h:i', strtotime($s->time))}}</td>
-									<td>{{$s->team1}} vs {{$s->team2}}</td>
+									<td><center>{{$loop->iteration}}</center></td>
+									<td><center>{{date('d F Y', strtotime($s->date))}}</center></td>
+									<td><center>{{date('h:i', strtotime($s->time))}}</center></td>
+									<td><center>{{$s->team1}} vs {{$s->team2}}</center></td>
 								</tr>
 							@endforeach
 						@else

@@ -5,7 +5,7 @@
  * ================================*/
 @import url(https://fonts.googleapis.com/css?family=Lato:300,400,400i,700);
 @import url(https://fonts.googleapis.com/css?family=Niconne);
-@import url(/css/font-awesome.min.css);
+@import url(https://use.fontawesome.com/releases/v5.0.12/js/all.js);
 /*!
  * Bootstrap v4.0.0 (https://getbootstrap.com)
  * Copyright 2011-2018 The Bootstrap Authors
@@ -2091,7 +2091,7 @@ select.form-control:focus::-ms-value {
 .input-group-sm > .input-group-prepend > .btn,
 .input-group-sm > .input-group-append > .btn {
   padding: 0.25rem 0.5rem;
-  font-size: 0.765625rem;
+  /* font-size: 0.765625rem; */
   line-height: 1.5;
   border-radius: 4px;
 }
@@ -13210,10 +13210,6 @@ be a descendant of the grid when it is being dragged.
   }
 }
 
-.app-sidebar__toggle:before {
-  content: "\f0c9";
-  font-size: 21px;
-}
 
 .app-sidebar__toggle:focus, .app-sidebar__toggle:hover {
   color: #fff;

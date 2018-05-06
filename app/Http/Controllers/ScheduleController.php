@@ -86,7 +86,7 @@ class ScheduleController extends Controller {
 		$schedule->teamid2 = $request->teamid2;
 		$schedule->save();
 
-		return redirect('/admin/jadwal');
+		return redirect('/admin/schedule');
 	}
 
 	/**

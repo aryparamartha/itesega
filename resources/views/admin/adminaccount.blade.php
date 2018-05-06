@@ -117,10 +117,10 @@
 			<div class="table-responsive">
 				<table id="datatables" class="table">
 					<thead>
-						<th scope="col">#</th>
-						<th scope="col">Nama</th>
-						<th scope="col">Email</th>
-						<th scope="col">Aksi</th>
+						<th>#</th>
+						<th><center>Nama</center></th>
+						<th><center>Email</center></th>
+						<th><center>Aksi</center></th>
 					</thead>
 					<tbody>
 						@if(count($admin))

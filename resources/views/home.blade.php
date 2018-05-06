@@ -108,7 +108,7 @@
                 <p class="cta-text">sudah memiliki tim dan mendaftarkan tim kamu di website IT-ESEGA? Tinggal sedikit lagi untuk melengkapi biodata tim kalian dan kirim bukti pembyaran dengan menekan tombol berikut.</p>
             </div>
             <div class="col-lg-3 cta-btn-container text-center">
-                <a class="cta-btn align-middle" href="/tim">Lengkapi</a>
+                <a class="cta-btn align-middle" href="/team">Lengkapi</a>
             </div>
             </div>
         </div>
