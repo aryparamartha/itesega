@@ -201,6 +201,27 @@ class UserMessageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $message = AdminMessageTemporary::find($id);
+        if ($message) {
+            $message->delete();
+        }
+        Session::flash('success', 'Pesan berhasil dihapus');
+        return redirect('/user/message');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteUserMsg($id)
+    {
+        $message = UserMessage::find($id);
+        if ($message) {
+            $message->delete();
+        }
+        Session::flash('success', 'Pesan berhasil dihapus');
+        return redirect('/user/message-out');
     }
 }

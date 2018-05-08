@@ -114,7 +114,7 @@ class MessageController extends Controller
             'subject' => 'required|string|max:255',
             'message' => 'required|string',
         ],[
-            'name.required' => 'Kolom nama harus diisi',
+            'team_id.required' => 'Kolom tim harus diisi',
             'subject.required' => 'Kolom subjek harus diisi',
             'message.required' => 'Pesan harus diisi',
         ]);
@@ -309,5 +309,21 @@ public function viewMsgOut($id)
         }
         Session::flash('success', 'Pesan berhasil dihapus');
         return redirect('/admin/message-guest');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteAdminMsgOut($id)
+    {
+        $message = AdminMessage::find($id);
+        if ($message) {
+            $message->delete();
+        }
+        Session::flash('success', 'Pesan berhasil dihapus');
+        return redirect('/admin/message-out');
     }
 }

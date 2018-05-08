@@ -35,7 +35,7 @@ class User extends Authenticatable {
 	}
 
 	public function adminMessage(){
-		return $this->hasMany('App\AdminMessage');
+		return $this->hasMany(AdminMessageTemporary::class, 'team_id');
 	}
 
 	public function member(){

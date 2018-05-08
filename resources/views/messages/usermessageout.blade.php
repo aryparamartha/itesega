@@ -109,6 +109,7 @@
                         <th><center>Subjek</center></th>
                         <th><center>Pesan</center></th>
                         <th><center>Waktu</center></th>
+                        <th><center>Aksi</center></th>
                     </thead>
                     <tbody>
                         @if(count($userMessage))
@@ -122,6 +123,36 @@
                                         </center>
                                     </td>
                                     <td><center>{{date('d F Y', strtotime($m->created_at))}}</center></td>
+                                    <td>
+                                        <center>
+                                            {{-- Delete --}}
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{$m->id}}"><i class="fas fa-trash-alt"></i></button>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="deleteModal{{$m->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLongTitle"><i class="fas fa-user-times text-danger"></i> Konfirmasi</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <center><p>Apakah Anda yakin menghapus pesan dari <b>{{$m->user->teamname}}</b></p></center>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i></button>
+                                                            <form class="form group" action="/user/message-out/{{$m->id}}" method="POST">
+                                                                @csrf
+                                                                {{method_field('DELETE')}}
+                                                                <button style="border-radius: 0px" type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </center>
+                                    </td>
                                 </tr>
                             @endforeach
                         @else

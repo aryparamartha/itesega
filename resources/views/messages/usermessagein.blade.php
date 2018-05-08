@@ -52,10 +52,10 @@
                             @csrf
                             <div class="modal-body">
                                 <div class="form-group row">
-                                    <label for="name" class="col-md-4 col-form-label text-md-left">{{ __('Pengirim') }}</label>
+                                    <label for="name" class="col-md-4 col-form-label text-md-left">{{ __('Ke') }}</label>
 
                                     <div class="col-md-8">
-                                        <input id="sender" type="text" class="form-control" name="sender" value="{{Auth::user()->teamname}}" disabled>
+                                        <input id="sender" type="text" class="form-control" name="sender" value="Admin" disabled>
 
                                         @if ($errors->has('sender'))
                                             <span class="invalid-feedback">
@@ -108,6 +108,7 @@
                         <th><center>Subjek</center></th>
                         <th><center>Pesan</center></th>
                         <th><center>Waktu</center></th>
+                        <th><center>Aksi</center></th>
                     </thead>
                     <tbody>
                         @if(count($allMessage))
@@ -125,6 +126,103 @@
                                         </center>
                                     </td>
                                     <td><center>{{date('d F Y', strtotime($m->created_at))}}</center></td>
+                                    <td>
+                                        <center>
+                                            {{-- Reply --}}
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#replyMessage{{$m->id}}">
+                                                <i class="fas fa-reply"></i>
+                                            </button>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="replyMessage{{$m->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-reply"></i> Balas pesan</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <form action="/user/message" method="POST">
+                                                            @csrf
+                                                            <div class="modal-body">
+                                                                <div class="form-group row">
+                                                                    <label for="name" class="col-md-4 col-form-label text-md-left">{{ __('Ke') }}</label>
+
+                                                                    <div class="col-md-8">
+                                                                        <input id="sender" type="text" class="form-control" name="sender" value="{{$m->sender}}" disabled>
+
+                                                                        @if ($errors->has('sender'))
+                                                                            <span class="invalid-feedback">
+                                                                                <strong>{{ $errors->first('sender') }}</strong>
+                                                                            </span>
+                                                                        @endif
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group row">
+                                                                    <label for="subject" class="col-md-4 col-form-label text-md-left">{{ __('Subjek') }}</label>
+
+                                                                    <div class="col-md-8">
+                                                                        <input id="subject" type="text" class="form-control{{ $errors->has('subject') ? ' is-invalid' : '' }}" name="subject" required>
+
+                                                                        @if ($errors->has('subject'))
+                                                                            <span class="invalid-feedback">
+                                                                                <strong>{{ $errors->first('subject') }}</strong>
+                                                                            </span>
+                                                                        @endif
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group row">
+                                                                    <label for="message" class="col-md-4 col-form-label text-md-left">{{ __('Pesan') }}</label>
+
+                                                                    <div class="col-md-8">
+                                                                    <textarea name="message" id="message" class="form-control{{ $errors->has('message') ? ' is-invalid' : '' }} mb-2" required></textarea>
+
+                                                                        @if ($errors->has('message'))
+                                                                            <span class="invalid-feedback">
+                                                                                <strong>{{ $errors->first('message') }}</strong>
+                                                                            </span>
+                                                                        @endif
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i></button>
+                                                                <button type="submit" name="submit" value="Simpan" class="btn btn-primary"><i class="far fa-save"></i></button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            {{-- Delete --}}
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{$m->id}}"><i class="fas fa-trash-alt"></i></button>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="deleteModal{{$m->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLongTitle"><i class="fas fa-user-times text-danger"></i> Konfirmasi</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <center><p>Apakah Anda yakin menghapus pesan dari <b>{{$m->user->teamname}}</b></p></center>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i></button>
+                                                            <form class="form group" action="/user/message/{{$m->id}}" method="POST">
+                                                                @csrf
+                                                                {{method_field('DELETE')}}
+                                                                <button style="border-radius: 0px" type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </center>
+                                    </td>
                                 </tr>
                             @endforeach
                         @else

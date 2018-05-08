@@ -144,7 +144,7 @@
 													</div>
 													<div class="modal-footer">
 														<button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i></button>
-														<form class="form group" action="/admin/message/{{$m->id}}" method="POST">
+														<form class="form group" action="/admin/message-out/{{$m->id}}" method="POST">
 															@csrf
 															{{method_field('DELETE')}}
 															<button style="border-radius: 0px" type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>

@@ -33,6 +33,7 @@ Route::group(['prefix'=> 'user'], function (){
 	Route::GET('/message-out', 'UserMessageController@sentMsg')->name('user.message-out');
 	Route::GET('/message-out/{id}', 'UserMessageController@seeMsg')->name('user.message-out-show');
 	Route::POST('/message-out', 'UserMessageController@msgToAdmin')->name('user.message-store');
+	Route::DELETE('/message-out/{id}', 'UserMessageController@deleteUserMsg');
 });
 
 // route untuk mengirim pesan dari guest yang dibuat di halaman home
@@ -107,6 +108,9 @@ Route::group(['prefix' => 'admin'], function () {
 
 	// route untuk mengakses detail pesan masuk guest
 	Route::GET('/message-guest/{id}', 'MessageController@msgGuestShow');
+
+	// route untuk menhapus pesan keluar admin
+	Route::DELETE('/message-out/{id}', 'MessageController@deleteAdminMsgOut');
 
 	// route untuk menghapus pesan dari guest oleh admin
 	Route::DELETE('/message-guest/{id}', 'MessageController@deleteGuestMsg');
