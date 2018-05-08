@@ -131,4 +131,7 @@ Route::group(['prefix' => 'admin'], function () {
 
 	// route untuk mengakses detail tim juara
 	Route::GET('/champion/{id}', 'AdminController@detailChampion')->name('admin.detail-champion');
+
+	// route untuk mengirim email ke guest
+	Route::POST('/send', 'MailController@send')->name('message.send');
 });
