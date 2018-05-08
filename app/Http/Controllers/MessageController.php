@@ -9,6 +9,7 @@ use App\AdminMessage;
 use App\GuestMessage;
 use App\AdminMessageTemporary;
 use App\UserMessageTemporary;
+use App\Notifications\NotifyInboxUser;
 use App\User;
 use Session;
 use Validator;
@@ -138,6 +139,8 @@ class MessageController extends Controller
         $message_temp->message = $request->message;
         $message_temp->save();
 
+        User::find($request->team_id)->notify(new NotifyInboxUser);
+
         Session::flash('success', 'Pesan berhasil dikirim');
         return redirect('/admin/message');
     }
@@ -179,6 +182,8 @@ class MessageController extends Controller
         $message_temp->message = $request->message;
         $message_temp->save();
 
+        User::find($request->team_id)->notify(new NotifyInboxUser);
+
         Session::flash('success', 'Pesan berhasil dikirim');
         return redirect('/admin/message-guest');
     }
@@ -219,6 +224,8 @@ class MessageController extends Controller
         $message_temp->subject = $request->subject;
         $message_temp->message = $request->message;
         $message_temp->save();
+
+        User::find($request->team_id)->notify(new NotifyInboxUser);
 
         Session::flash('success', 'Pesan berhasil dikirim');
         return redirect('/admin/message-out');

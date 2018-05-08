@@ -12,6 +12,9 @@ use DB;
 use Validator;
 use App\UserMessageTemporary;
 use Session;
+use App\Admin;
+use App\Notifications\NotifyInboxAdmin;
+use Notification;
 
 class UserMessageController extends Controller
 {
@@ -94,6 +97,9 @@ class UserMessageController extends Controller
         $message_temp->subject = $request->subject;
         $message_temp->message = $request->message;
         $message_temp->save();
+
+        $admins = Admin::all();
+        Notification::send($admins, new NotifyInboxAdmin);
 
         Session::flash('success', 'Pesan berhasil dikirim');
         return redirect('/user/message');

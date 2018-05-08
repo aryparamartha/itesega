@@ -31,7 +31,7 @@ class User extends Authenticatable {
 	}
 
 	public function messageTemporaries(){
-		return $this->hasMany('App\UserMessageTemporary');
+		return $this->hasMany(UserMessageTemporary::class);
 	}
 
 	public function adminMessage(){
