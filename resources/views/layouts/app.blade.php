@@ -27,9 +27,9 @@
         <div class="container">
 
         <div id="logo" class="pull-left">
-        <a href="#hero"><img src="img/logo.png" width="10%" height="10%" alt="" title="" /></img></a>
+        {{-- <a href="#hero"><img src="img/logo.png" width="10%" height="10%" alt="" title="" /></img></a> --}}
         <!-- Uncomment below if you prefer to use a text logo -->
-        <!--<h1><a href="#hero">Regna</a></h1>-->
+        <h1><a href="#">IT-ESEGA</a></h1>
         </div>
 
         <nav id="nav-menu-container">
